@@ -97,6 +97,10 @@ public class ItemDaoImpl implements ItemDao {
                 item.setAttribute5(resultSet.getString("attribute5"));
                 itemList.add(item);
             }
+
+            DBUtil.closeResultSet(resultSet);
+            DBUtil.closeStatement(statement);
+            DBUtil.closeConnection(connection);
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -131,14 +135,18 @@ public class ItemDaoImpl implements ItemDao {
                 item.setAttribute5(resultSet.getString("attribute5"));
                 item.setQuantity(resultSet.getInt("quantity"));
             }
+
+            DBUtil.closeResultSet(resultSet);
+            DBUtil.closeStatement(statement);
+            DBUtil.closeConnection(connection);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return item;
     }
-
-    public static void main(String[] args) {
-        ItemDaoImpl itemDao = new ItemDaoImpl();
-        System.out.println(itemDao.getItemListByProduct("AV-CB-01"));
-    }
+    //
+    //public static void main(String[] args) {
+    //    ItemDaoImpl itemDao = new ItemDaoImpl();
+    //    System.out.println(itemDao.getItemListByProduct("AV-CB-01"));
+    //}
 }

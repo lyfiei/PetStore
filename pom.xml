@@ -54,6 +54,12 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>net.sourceforge.stripes</groupId>
+            <artifactId>stripes</artifactId>
+            <version>1.6.0</version> <!-- 或其他版本 -->
+        </dependency>
+
 
     </dependencies>
 

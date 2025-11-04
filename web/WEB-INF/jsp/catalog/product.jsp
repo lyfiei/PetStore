@@ -32,7 +32,10 @@
 
 
         <td>
-          <a href="" class="Button">addItemToCart</a>
+          <form action="addItemToCart" method="post">
+            <input type="hidden" name="workingItemId" value="${item.itemId}">
+            <button type="submit" class="Button">Add to Cart</button>
+          </form>
         </td>
       </tr>
     </c:forEach>

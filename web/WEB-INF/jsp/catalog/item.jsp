@@ -36,7 +36,10 @@
 
     <tr>
       <td>
-      <a href=" " class="Button">Add to Cart</a>
+        <form action="addItemToCart" method="post">
+          <input type="hidden" name="workingItemId" value="${sessionScope.item.itemId}">
+          <button type="submit" class="Button">Add to Cart</button>
+        </form>
       </td>
     </tr>
   </table>
