@@ -15,7 +15,7 @@ import java.util.List;
 public class CategoryFormServlet  extends HttpServlet {
     private CatalogService catalogService;
 
-    private static final String CATEGORY_FORM= "/WEB-INF/jsp/catalog/catalog.jsp";
+    private static final String CATEGORY_FORM= "/WEB-INF/jsp/catalog/category.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
