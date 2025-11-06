@@ -17,6 +17,9 @@ public class CartFormServlet extends HttpServlet {
         //Cart cart = (Cart) session.getAttribute("cart");
         //
         //req.setAttribute("cart", cart); // 传给 JSP
+
+
+        //自己修改一个bug。写一个提示“不能等于空值”,当cart为空时不能访问update后的界面
         req.getRequestDispatcher(CART_FORM).forward(req, resp);
     }
 }

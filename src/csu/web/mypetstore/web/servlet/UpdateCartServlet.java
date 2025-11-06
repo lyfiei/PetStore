@@ -19,6 +19,9 @@ public class UpdateCartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
+
+        //自己修改一个bug。写一个提示“不能等于空值”,当cart为空时不能访问update后的界面
+
         Iterator<CartItem> cartItems = cart.getAllCartItems();
 
 
