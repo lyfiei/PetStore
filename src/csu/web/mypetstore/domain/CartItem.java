@@ -13,6 +13,7 @@ public class CartItem implements Serializable {
     private boolean inStock;
     private BigDecimal total;
 
+
     public boolean isInStock() {
         return inStock;
     }

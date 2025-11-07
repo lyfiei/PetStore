@@ -18,4 +18,5 @@ public interface AccountDao {
     void updateProfile(Account account);
 
     void updateSignon(Account account);
+
 }

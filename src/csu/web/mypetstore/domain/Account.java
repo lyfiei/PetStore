@@ -27,6 +27,7 @@ public class Account implements Serializable {
     private boolean bannerOption;
     private String bannerName;
 
+
     public String getUsername() {
         return username;
     }

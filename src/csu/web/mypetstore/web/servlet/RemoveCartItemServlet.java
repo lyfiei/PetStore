@@ -1,7 +1,11 @@
 package csu.web.mypetstore.web.servlet;
 
+import csu.web.mypetstore.domain.Account;
 import csu.web.mypetstore.domain.Cart;
+import csu.web.mypetstore.domain.CartItem;
 import csu.web.mypetstore.domain.Item;
+import csu.web.mypetstore.persistence.impl.CartDaoImpl;
+import csu.web.mypetstore.service.CartService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,13 +24,20 @@ public class RemoveCartItemServlet extends HttpServlet {
         Cart cart = (Cart) session.getAttribute("cart");
         String workingItemId = req.getParameter("workingItemId");
 
-        Item item = cart.removeItemById(workingItemId);
+        CartService cartservice = new CartService(new CartDaoImpl());
+        Account account = (Account) session.getAttribute("loginAccount");
+        String userId = account.getUsername();
 
-        if (item == null) {
-            session.setAttribute("errorMessage", "Attempted to remove null CartItem from Cart.");
-            req.getRequestDispatcher(ERROR_FORM).forward(req, resp);
-        } else {
-            req.getRequestDispatcher(CART_FORM).forward(req, resp);
-        }
+        CartItem cartItem = cartservice.getCartItem(userId, workingItemId);
+
+        //if (cartItem == null) {
+        //    session.setAttribute("errorMessage", "Attempted to remove null CartItem from Cart.");
+        //    req.getRequestDispatcher(ERROR_FORM).forward(req, resp);
+        //} else {
+        //    req.getRequestDispatcher(CART_FORM).forward(req, resp);
+        //}
+
+        cartservice.removeCartItem(cart,userId, workingItemId);
+        req.getRequestDispatcher(CART_FORM).forward(req, resp);
     }
 }

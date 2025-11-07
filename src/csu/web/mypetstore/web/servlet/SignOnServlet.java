@@ -35,7 +35,7 @@ public class SignOnServlet extends HttpServlet {
             req.getRequestDispatcher(SIGN_ON_FORM).forward(req, resp);
         }else{
             AccountService accountService = new AccountService();
-            Account loginAccount =   accountService.getAccount(username, password);
+            Account loginAccount =  accountService.getAccount(username, password);
             if(loginAccount == null){
                 this.msg = "用户名或者密码错误";
                 req.getRequestDispatcher(SIGN_ON_FORM).forward(req, resp);

@@ -66,6 +66,7 @@ public class AccountDaoImpl implements AccountDao {
                 account.setListOption(resultSet.getBoolean(15));
                 account.setBannerOption(resultSet.getBoolean(16));
                 account.setBannerName(resultSet.getString(17));
+
             }
             DBUtil.closeResultSet(resultSet);
             DBUtil.closeStatement(statement);
