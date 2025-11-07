@@ -11,8 +11,23 @@ import java.sql.ResultSet;
 public class AccountDaoImpl implements AccountDao {
     @Override
     public Account getAccountByUsername(String username) {
+        String sql = "SELECT USERID FROM ACCOUNT WHERE USERID=?";
+        try(Connection conn = DBUtil.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, username);
+            try(ResultSet rs = ps.executeQuery()) {
+                if(rs.next()) {
+                    Account acc = new Account();
+                    acc.setUsername(rs.getString("USERID"));
+                    return acc;
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
+
 
     private static final String GET_ACCOUNT_BY_USERNAME_AND_PASSWORD = "SELECT\n" +
             "    SIGNON.USERNAME,\n" +
@@ -79,18 +94,70 @@ public class AccountDaoImpl implements AccountDao {
 
     @Override
     public void insertAccount(Account account) {
+        String sql = "INSERT INTO ACCOUNT (USERID, EMAIL, FIRSTNAME, LASTNAME, STATUS, ADDR1, ADDR2, CITY, STATE, ZIP, COUNTRY, PHONE) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            Connection conn = DBUtil.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, account.getUsername());
+            ps.setString(2, account.getEmail());
+            ps.setString(3, account.getFirstName());
+            ps.setString(4, account.getLastName());
+            ps.setString(5, "OK"); // 默认状态
+            ps.setString(6, account.getAddress1());
+            ps.setString(7, account.getAddress2());
+            ps.setString(8, account.getCity());
+            ps.setString(9, account.getState());
+            ps.setString(10, account.getZip());
+            ps.setString(11, account.getCountry());
+            ps.setString(12, account.getPhone());
 
+            ps.executeUpdate();
+            DBUtil.closeStatement(ps);
+            DBUtil.closeConnection(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void insertProfile(Account account) {
+        String sql = "INSERT INTO PROFILE (USERID, LANGPREF, FAVCATEGORY, MYLISTOPT, BANNEROPT) " +
+                "VALUES (?, ?, ?, ?, ?)";
+        try {
+            Connection conn = DBUtil.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, account.getUsername());
+            ps.setString(2, account.getLanguagePreference());
+            ps.setString(3, account.getFavouriteCategoryId());
+            ps.setBoolean(4, account.isListOption());
+            ps.setBoolean(5, account.isBannerOption());
 
+            ps.executeUpdate();
+            DBUtil.closeStatement(ps);
+            DBUtil.closeConnection(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void insertSignon(Account account) {
+        String sql = "INSERT INTO SIGNON (USERNAME, PASSWORD) VALUES (?, ?)";
+        try {
+            Connection conn = DBUtil.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, account.getUsername());
+            ps.setString(2, account.getPassword());
 
+            ps.executeUpdate();
+            DBUtil.closeStatement(ps);
+            DBUtil.closeConnection(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     @Override
     public void updateAccount(Account account) {
@@ -106,6 +173,7 @@ public class AccountDaoImpl implements AccountDao {
     public void updateSignon(Account account) {
 
     }
+
 
     //public static void main(String[] args) {
     //    AccountDao accountDao = new AccountDaoImpl();
