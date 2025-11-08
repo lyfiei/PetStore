@@ -58,5 +58,29 @@ public class AccountService {
         return accountDao.getAccountByUsername(username);
     }
 
+    public void updateAccount(Account account) throws Exception {
+        Connection conn = null;
+        try {
+            conn = DBUtil.getConnection();
+            conn.setAutoCommit(false);
+
+            accountDao.updateAccount(account);
+            accountDao.updateProfile(account);
+            accountDao.updateSignon(account);
+
+            conn.commit();
+        } catch (Exception e) {
+            if (conn != null) {
+                conn.rollback();
+            }
+            throw e;
+        } finally {
+            if (conn != null) {
+                conn.setAutoCommit(true);
+                conn.close();
+            }
+        }
+    }
+
 
 }

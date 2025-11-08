@@ -150,4 +150,15 @@
         <url-pattern>/profileForm</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UpdateProfileServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.UpdateProfileServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateProfileServlet</servlet-name>
+        <url-pattern>/updateProfile</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

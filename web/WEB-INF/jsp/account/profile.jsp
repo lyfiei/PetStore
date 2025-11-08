@@ -1,10 +1,11 @@
 <%@ include file="../common/top.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="Catalog">
   <h2>Account Information</h2>
 
-  <form action="updateProfile" method="post">
+  <form action="${pageContext.request.contextPath}/updateProfile" method="post">
     <table>
       <tr>
         <td>Username:</td>
@@ -93,5 +94,11 @@
     <input type="submit" value="Save Changes" class="Button"/>
   </form>
 </div>
-
+<script>
+  document.querySelector('form').addEventListener('submit', function(e) {
+    console.log('表单提交事件触发');
+    console.log('firstName:', document.querySelector('[name="firstName"]').value);
+    // 可以添加其他字段的日志
+  });
+</script>
 <%@ include file="../common/bottom.jsp"%>
