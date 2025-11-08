@@ -16,6 +16,11 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        // 设置请求编码
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
+
         // 获取表单参数
         String username = req.getParameter("username");
         String password = req.getParameter("password");
@@ -87,7 +92,7 @@ public class RegisterServlet extends HttpServlet {
 
 
         // 注册成功，重定向到登录页
-        resp.sendRedirect(SIGN_ON_FORM);
+        resp.sendRedirect("signOnForm");
     }
 }
 

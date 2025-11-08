@@ -140,4 +140,14 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ProfileFormServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.ProfileFormServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ProfileFormServlet</servlet-name>
+        <url-pattern>/profileForm</url-pattern>
+    </servlet-mapping>
+
 </web-app>

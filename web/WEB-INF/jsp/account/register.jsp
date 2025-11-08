@@ -1,4 +1,6 @@
 <%@ include file="../common/top.jsp"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<meta charset="UTF-8">
 
 <div id="Catalog">
 
