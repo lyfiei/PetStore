@@ -170,4 +170,23 @@
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>AddressListServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.AddressListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddressListServlet</servlet-name>
+        <url-pattern>/addressList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddAddressServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.AddAddressServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddAddressServlet</servlet-name>
+        <url-pattern>/addAddress</url-pattern>
+    </servlet-mapping>
+
 </web-app>
