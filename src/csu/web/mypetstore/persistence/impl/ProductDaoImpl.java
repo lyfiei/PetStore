@@ -97,9 +97,4 @@ public class ProductDaoImpl implements ProductDao {
         return productList;
     }
 
-    //public static void main(String[] args) {
-    //    ProductDaoImpl productDao = new ProductDaoImpl();
-    //    System.out.println(productDao.getProductListByCategory("BIRDS"));
-    //    System.out.println(productDao.getProduct("AV-CB-01"));
-    //}
 }

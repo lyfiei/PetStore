@@ -31,11 +31,13 @@ public class SignOnServlet extends HttpServlet {
 
         //校验用户输入的正确性
         if(!validate()){
+
             req.setAttribute("signOnMsg",this.msg);
             req.getRequestDispatcher(SIGN_ON_FORM).forward(req, resp);
         }else{
             AccountService accountService = new AccountService();
             Account loginAccount =   accountService.getAccount(username, password);
+
             if(loginAccount == null){
                 this.msg = "用户名或者密码错误";
                 req.getRequestDispatcher(SIGN_ON_FORM).forward(req, resp);
@@ -43,7 +45,6 @@ public class SignOnServlet extends HttpServlet {
                 loginAccount.setPassword(null);
                 HttpSession session = req.getSession();
                 session.setAttribute("loginAccount",loginAccount);
-
                 if(loginAccount.isListOption()){
                     CatalogService catalogService = new CatalogService();
                     List<Product> myList = catalogService.getProductListByCategory(loginAccount.getFavouriteCategoryId());
