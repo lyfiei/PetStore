@@ -1,12 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="csu.web.mypetstore.domain.Account" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ include file="../common/top.jsp"%>
 
 <div id="Catalog">
-    <form action="newOrderForm" method="POST">
+    <form action="${pageContext.request.contextPath}/shippingForm" method="POST">
+
         <%
-            Account account = (Account) session.getAttribute("account");
+            Account account = (Account) session.getAttribute("loginAccount");
         %>
         <table>
             <tr>
