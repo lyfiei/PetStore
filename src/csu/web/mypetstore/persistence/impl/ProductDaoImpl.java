@@ -19,9 +19,8 @@ public class ProductDaoImpl implements ProductDao {
     private static final String GET_PRODUCT_LIST_BY_CATEGORY = " SELECT PRODUCTID ,NAME ," +
             "DESCN as description ,CATEGORY as categoryId FROM PRODUCT WHERE `CATEGORY` = ?";
 
-    private static final String SEARCH_PRODUCT_LIST = "select PRODUCTID, NAME, DESCN as description `CATEGORY` as categoryId from PRODUCT WHERE lower(name) like ?";
-
-
+    private static final String SEARCH_PRODUCT_LIST = "select PRODUCTID, NAME, DESCN as description ,`CATEGORY` as categoryId " +
+            "from PRODUCT WHERE lower(name) like ?";
 
     @Override
     public List<Product> getProductListByCategory(String categoryId) {
@@ -97,9 +96,4 @@ public class ProductDaoImpl implements ProductDao {
         return productList;
     }
 
-    //public static void main(String[] args) {
-    //    ProductDaoImpl productDao = new ProductDaoImpl();
-    //    System.out.println(productDao.getProductListByCategory("BIRDS"));
-    //    System.out.println(productDao.getProduct("AV-CB-01"));
-    //}
 }
