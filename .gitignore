@@ -5,3 +5,12 @@ mypetstore.iml
 
 ##web项目的out目录
 out/
+
+# 忽略编译生成的文件
+target/
+
+# 忽略所有图片文件
+*.png
+*.jpg
+*.jpeg
+*.gif
