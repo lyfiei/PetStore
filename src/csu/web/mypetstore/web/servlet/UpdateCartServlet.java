@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class UpdateCartServlet extends HttpServlet {
@@ -26,40 +27,51 @@ public class UpdateCartServlet extends HttpServlet {
 
         CartService cartService = new CartService(new CartDaoImpl());
         Account account = (Account) session.getAttribute("loginAccount");
-        String userId = account.getUsername();
 
-        //// 遍历所有前端提交的参数
-        //Map<String, String[]> paramMap = req.getParameterMap();
-        //for (String itemId : paramMap.keySet()) {
-        //    try {
-        //        int quantity = Integer.parseInt(req.getParameter(itemId));
-        //        if (quantity > 0) {
-        //            cartService.updateQuantity(cart,userId,itemId, quantity);
-        //        } else {
-        //            cartService.removeCartItem(cart,userId, itemId);
-        //        }
-        //    } catch (NumberFormatException e) {
-        //        e.printStackTrace(); // 忽略非法输入
-        //    }
-        //}
 
-        Iterator<CartItem> cartItems = cart.getAllCartItems();
-        while (cartItems.hasNext()) {
-            CartItem cartItem = (CartItem) cartItems.next();
-            String itemId = cartItem.getItem().getItemId();
-            try {
-                String quantityString = req.getParameter(itemId);
-                int quantity = Integer.parseInt(quantityString);
-
-                cartService.updateQuantity(cart,userId, itemId, quantity);
-                if (quantity < 1) {
-                    cartService.removeCartItem(cart,userId, itemId);
+        if (account == null) {
+            //resp.sendRedirect("signonForm");
+            //return;
+            if (cart == null) {
+                cart = new Cart();
+            }
+            Iterator<CartItem> cartItems = cart.getAllCartItems();
+            while (cartItems.hasNext()) {
+                CartItem cartItem = (CartItem) cartItems.next();
+                String itemId = cartItem.getItem().getItemId();
+                try {
+                    int quantity = Integer.parseInt((String) req.getParameter(itemId));
+                    cart.setQuantityByItemId(itemId, quantity);
+                    if (quantity < 1) {
+                        cart.removeItemById(itemId);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                //ignore parse exceptions on purpose
-                e.printStackTrace();
             }
         }
+        else {
+            String userId = account.getUsername();
+            Iterator<CartItem> cartItems = cart.getAllCartItems();
+            while (cartItems.hasNext()) {
+                CartItem cartItem = (CartItem) cartItems.next();
+                String itemId = cartItem.getItem().getItemId();
+                try {
+                    String quantityString = req.getParameter(itemId);
+                    int quantity = Integer.parseInt(quantityString);
+
+                    cartService.updateQuantity(cart, userId, itemId, quantity);
+                    if (quantity < 1) {
+                        cartService.removeCartItem(cart, userId, itemId);
+                    }
+                } catch (Exception e) {
+                    //ignore parse exceptions on purpose
+                    e.printStackTrace();
+                }
+            }
+
+        }
+        session.setAttribute("cart", cart);
         req.getRequestDispatcher(CART_FORM).forward(req, resp);
     }
 

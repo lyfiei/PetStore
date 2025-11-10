@@ -26,9 +26,22 @@ public class RemoveCartItemServlet extends HttpServlet {
 
         CartService cartservice = new CartService(new CartDaoImpl());
         Account account = (Account) session.getAttribute("loginAccount");
-        String userId = account.getUsername();
 
-        CartItem cartItem = cartservice.getCartItem(userId, workingItemId);
+
+        if (account == null) {
+            //resp.sendRedirect("signonForm");
+            //return;
+            if (cart == null) {
+                cart = new Cart();
+            }
+            cart.removeItemById(workingItemId);
+        }else{
+            String userId = account.getUsername();
+            CartItem cartItem = cartservice.getCartItem(userId, workingItemId);
+            cartservice.removeCartItem(cart,userId, workingItemId);
+        }
+
+
 
         //if (cartItem == null) {
         //    session.setAttribute("errorMessage", "Attempted to remove null CartItem from Cart.");
@@ -37,7 +50,7 @@ public class RemoveCartItemServlet extends HttpServlet {
         //    req.getRequestDispatcher(CART_FORM).forward(req, resp);
         //}
 
-        cartservice.removeCartItem(cart,userId, workingItemId);
+        session.setAttribute("cart", cart);
         req.getRequestDispatcher(CART_FORM).forward(req, resp);
     }
 }

@@ -30,50 +30,56 @@ public class AddItemToCartServlet extends HttpServlet {
         CartService cartService = new CartService(new CartDaoImpl());
         Account account = (Account) session.getAttribute("loginAccount");
         if (account == null) {
-            resp.sendRedirect("signonForm");
-            return;
-        }
-        if (cart == null) {
-            cart = new Cart();
-            List<CartItem> dbItems = cartService.getCartItemsByUserId(account.getUsername());
-            for (CartItem item : dbItems) {
-                cart.addItem(item.getItem(), item.isInStock());
-                cart.setQuantityByItemId(item.getItem().getItemId(), item.getQuantity());
+            //resp.sendRedirect("signonForm");
+            //return;
+            if (cart == null) {
+                cart = new Cart();
             }
+            CatalogService catalogService = new CatalogService();
+            Item item = catalogService.getItem(workingItemId);
+            // 1. 内存 Cart 添加商品
+            CartItem cartItem = cart.addItem(item, catalogService.isItemInStock(item.getItemId()));
+        }else{
+            if (cart == null) {
+                cart = new Cart();
+                List<CartItem> dbItems = cartService.getCartItemsByUserId(account.getUsername());
+                for (CartItem item : dbItems) {
+                    cart.addItem(item.getItem(), item.isInStock());
+                    cart.setQuantityByItemId(item.getItem().getItemId(), item.getQuantity());
+                }
+            }
+            String userId = account.getUsername();
+            cartService.addCartItem(cart, workingItemId,userId);
         }
-        String userId = account.getUsername();
-
-
-        cartService.addCartItem(cart, workingItemId,userId);
 
         session.setAttribute("cart", cart);
         resp.sendRedirect(req.getContextPath() + "/cartForm");
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String workingItemId = req.getParameter("workingItemId");
-
-        HttpSession session = req.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-
-        if(cart == null) {
-            cart = new Cart();
-        }
-
-        if (cart.containsItemId(workingItemId)) {
-            cart.incrementQuantityByItemId(workingItemId);
-        } else {
-            CatalogService catalogService = new CatalogService();
-            boolean isInStock = catalogService.isItemInStock(workingItemId);
-            Item item = catalogService.getItem(workingItemId);
-            cart.addItem(item, isInStock);
-
-        }
-
-        session.setAttribute("cart", cart);
-        req.getRequestDispatcher(CART_FORM).forward(req, resp);
-    }
+    //@Override
+    //protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    //    String workingItemId = req.getParameter("workingItemId");
+    //
+    //    HttpSession session = req.getSession();
+    //    Cart cart = (Cart) session.getAttribute("cart");
+    //
+    //    if(cart == null) {
+    //        cart = new Cart();
+    //    }
+    //
+    //    if (cart.containsItemId(workingItemId)) {
+    //        cart.incrementQuantityByItemId(workingItemId);
+    //    } else {
+    //        CatalogService catalogService = new CatalogService();
+    //        boolean isInStock = catalogService.isItemInStock(workingItemId);
+    //        Item item = catalogService.getItem(workingItemId);
+    //        cart.addItem(item, isInStock);
+    //
+    //    }
+    //
+    //    session.setAttribute("cart", cart);
+    //    req.getRequestDispatcher(CART_FORM).forward(req, resp);
+    //}
 
     //@Override
     //protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

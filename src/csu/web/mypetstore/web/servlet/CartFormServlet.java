@@ -19,21 +19,22 @@ public class CartFormServlet extends HttpServlet {
     private String CART_FORM = "/WEB-INF/jsp/cart/cart.jsp";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Account account = (Account) req.getSession().getAttribute("loginAccount");
-        if (account == null) {
-            resp.sendRedirect("signonForm");
-            return;
-        }
-
-        CartService cartService = new CartService(new CartDaoImpl());
-        // 从数据库取该用户的购物车
-        List<CartItem> cartItems = cartService.getCartItemsByUserId(account.getUsername());
-
         HttpSession session = req.getSession();
-        // 计算小计和数量
 
-        //要注意是从哪里set 的cart，emmm我们还是采用创建临时购物车的功能，但是结算前必须登录，这里还只是一个数据库购物车，不完整
+        Account account = (Account) req.getSession().getAttribute("loginAccount");
         Cart cart = (Cart) session.getAttribute("cart");
+        if (account == null) {
+            //resp.sendRedirect("signonForm");
+            //return;
+
+            if(cart == null) {
+                cart = new Cart();
+            }
+        }else{
+            CartService cartService = new CartService(new CartDaoImpl());
+            // 从数据库取该用户的购物车
+            List<CartItem> cartItems = cartService.getCartItemsByUserId(account.getUsername());
+            // 计算小计和数量
             if(cart == null) {
                 cart = new Cart();
                 for (CartItem item : cartItems) {
@@ -41,6 +42,9 @@ public class CartFormServlet extends HttpServlet {
                     cart.setQuantityByItemId(item.getItem().getItemId(), item.getQuantity());
                 }
             }
+        }
+
+
         req.getSession().setAttribute("cart", cart);
         req.getRequestDispatcher(CART_FORM).forward(req, resp);
     }

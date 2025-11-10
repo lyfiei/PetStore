@@ -4,6 +4,10 @@ import csu.web.mypetstore.domain.Account;
 import csu.web.mypetstore.domain.Product;
 import csu.web.mypetstore.service.AccountService;
 import csu.web.mypetstore.service.CatalogService;
+import csu.web.mypetstore.domain.Cart;
+import csu.web.mypetstore.service.CartService;
+import csu.web.mypetstore.domain.CartItem;
+import csu.web.mypetstore.persistence.impl.CartDaoImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 public class SignOnServlet extends HttpServlet {
@@ -48,6 +53,41 @@ public class SignOnServlet extends HttpServlet {
                     CatalogService catalogService = new CatalogService();
                     List<Product> myList = catalogService.getProductListByCategory(loginAccount.getFavouriteCategoryId());
                     session.setAttribute("myList",myList);
+                }
+
+                //合并购物车
+                Cart sessionCart = (Cart) session.getAttribute("cart");
+                CartService cartService = new CartService(new CartDaoImpl());
+
+                String userid = loginAccount.getUsername();
+
+                List<CartItem> dbCartItems = cartService.getCartItemsByUserId(userid);
+
+                // 合并 session 中未登录时的购物车
+                if (sessionCart != null) {
+                    Iterator<CartItem> sessionItems = sessionCart.getAllCartItems();
+                    while (sessionItems.hasNext()) {
+                        CartItem sessionItem = (CartItem) sessionItems.next();
+                        boolean exists = false;
+                        String sessionid = sessionItem.getItem().getItemId();
+                        for (CartItem dbItem : dbCartItems) {
+                            String itemid = dbItem.getItem().getItemId();
+                            if (itemid.equals(sessionid)) {
+                                dbItem.setQuantity(dbItem.getQuantity() + sessionItem.getQuantity());
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (!exists) dbCartItems.add(sessionItem);
+                    }
+                    // 更新 session和数据库
+                    Cart mergedCart = new Cart();
+                    for (CartItem item : dbCartItems) {
+                        String itemid = item.getItem().getItemId();
+                        cartService.addCartItem(mergedCart,itemid,userid);
+                        cartService.updateQuantity(mergedCart,userid,itemid,item.getQuantity());
+                    }
+                    session.setAttribute("cart", mergedCart);
                 }
 
                 resp.sendRedirect("mainForm");
