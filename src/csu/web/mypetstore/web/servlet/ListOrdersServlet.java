@@ -30,7 +30,7 @@ public class ListOrdersServlet extends HttpServlet {
 
         List<Order> orderList = orderService.getOrdersByUsername(account.getUsername());
         req.setAttribute("orderList", orderList);
-
         req.getRequestDispatcher(LIST_ORDERS).forward(req, resp);
+
     }
 }
