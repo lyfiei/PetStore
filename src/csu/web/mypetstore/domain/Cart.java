@@ -2,7 +2,6 @@ package csu.web.mypetstore.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,7 +36,7 @@ public class Cart implements Serializable {
         return itemMap.containsKey(itemId);
     }
 
-    public void addItem(Item item, boolean isInStock) {
+    public CartItem addItem(Item item, boolean isInStock) {
         CartItem cartItem = (CartItem) itemMap.get(item.getItemId());
         if (cartItem == null) {
             cartItem = new CartItem();
@@ -48,6 +47,7 @@ public class Cart implements Serializable {
             itemList.add(cartItem);
         }
         cartItem.incrementQuantity();
+        return cartItem;
     }
 
     public Item removeItemById(String itemId) {

@@ -39,11 +39,12 @@ public class ItemDaoImpl implements ItemDao {
 
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement statement = conn.prepareStatement(UPDATE_INVENTORY_QUANTITY)) {
-
             statement.setInt(1, increment);
             statement.setString(2, itemId);
-
             statement.executeUpdate();
+
+            DBUtil.closeStatement(statement);
+            DBUtil.closeConnection(conn);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,6 +63,9 @@ public class ItemDaoImpl implements ItemDao {
             if (resultSet.next()) {
                 quantity = resultSet.getInt(1);
             }
+            DBUtil.closeResultSet(resultSet);
+            DBUtil.closeStatement(statement);
+            DBUtil.closeConnection(connection);
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -121,6 +125,7 @@ public class ItemDaoImpl implements ItemDao {
                 item.setListPrice(resultSet.getBigDecimal("LISTPRICE"));
                 item.setUnitCost(resultSet.getBigDecimal("UNITCOST"));
                 item.setSupplierId(resultSet.getInt("supplierId"));
+                item.setProductId(resultSet.getString("product_productId"));
                 Product product = new Product();
                 product.setProductId(resultSet.getString("product_productId"));
                 product.setName(resultSet.getString("product_name"));
