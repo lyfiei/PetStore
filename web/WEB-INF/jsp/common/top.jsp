@@ -33,7 +33,7 @@
         </c:if>
 
         <c:if test="${sessionScope.loginAccount != null}">
-          <a href="#">Sign Out</a>
+          <a href="signOut">Sign Out</a>
           <img align="middle" src="images/separator.gif" />
           <a href="profileForm">My Account</a>
           <img align="middle" src="images/separator.gif" />
@@ -67,6 +67,13 @@
   </div>
 
   <div id="Content">
+
+    <c:if test="${not empty sessionScope.updateMsg}">
+    <div style="background-color:#e6ffe6; color:#006600; font-weight:bold; padding:8px; border-radius:6px; margin:10px 0; text-align:center;">
+        ${sessionScope.updateMsg}
+    </div>
+      <c:remove var="updateMsg" scope="session"/>
+    </c:if>
 
 
 

@@ -160,5 +160,41 @@
         <url-pattern>/updateProfile</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>SendEmailCodeServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.SendEmailCodeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendEmailCodeServlet</servlet-name>
+        <url-pattern>/sendEmailCode</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EmailLoginServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.EmailLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EmailLoginServlet</servlet-name>
+        <url-pattern>/emailLogin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SignOnCodeFormServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.SignOnCodeFormServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignOnCodeFormServlet</servlet-name>
+        <url-pattern>/signOnCodeForm</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SignOutServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.SignOutServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SignOutServlet</servlet-name>
+        <url-pattern>/signOut</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>
