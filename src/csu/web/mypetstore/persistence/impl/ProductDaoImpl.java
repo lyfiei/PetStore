@@ -19,8 +19,16 @@ public class ProductDaoImpl implements ProductDao {
     private static final String GET_PRODUCT_LIST_BY_CATEGORY = " SELECT PRODUCTID ,NAME ," +
             "DESCN as description ,CATEGORY as categoryId FROM PRODUCT WHERE `CATEGORY` = ?";
 
-    private static final String SEARCH_PRODUCT_LIST = "select PRODUCTID, NAME, DESCN as description ,`CATEGORY` as categoryId " +
-            "from PRODUCT WHERE lower(name) like ?";
+    private static final String SEARCH_PRODUCT_LIST =
+            "SELECT DISTINCT P.PRODUCTID, P.NAME, P.DESCN AS description, P.CATEGORY AS categoryId " +
+                    "FROM PRODUCT P " +
+                    "JOIN CATEGORY C ON P.CATEGORY = C.CATID " +
+                    "LEFT JOIN ITEM I ON P.PRODUCTID = I.PRODUCTID " +
+                    "WHERE LOWER(P.NAME) LIKE ? OR LOWER(P.DESCN) LIKE ? " +
+                    "   OR LOWER(C.NAME) LIKE ? OR LOWER(C.DESCN) LIKE ? " +
+                    "   OR LOWER(I.ATTR1) LIKE ? OR LOWER(I.ATTR2) LIKE ? OR LOWER(I.ATTR3) LIKE ? " +
+                    "ORDER BY P.PRODUCTID";
+
 
     @Override
     public List<Product> getProductListByCategory(String categoryId) {
@@ -73,13 +81,17 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public List<Product> searchProductList(String keywords) {
-        List<Product> productList = new ArrayList<Product>();
-        try{
-            Connection connection = DBUtil.getConnection();
-            PreparedStatement statement = connection.prepareStatement(SEARCH_PRODUCT_LIST);
-            statement.setString(1, keywords);
+        List<Product> productList = new ArrayList<>();
+        try (Connection connection = DBUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SEARCH_PRODUCT_LIST)) {
+
+            String key = "%" + keywords.toLowerCase() + "%";
+            for (int i = 1; i <= 7; i++) {
+                statement.setString(i, key);
+            }
+
             ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 Product product = new Product();
                 product.setProductId(resultSet.getString("PRODUCTID"));
                 product.setName(resultSet.getString("NAME"));
@@ -87,13 +99,13 @@ public class ProductDaoImpl implements ProductDao {
                 product.setCategoryId(resultSet.getString("categoryId"));
                 productList.add(product);
             }
+
             DBUtil.closeResultSet(resultSet);
-            DBUtil.closeStatement(statement);
-            DBUtil.closeConnection(connection);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return productList;
     }
+
 
 }

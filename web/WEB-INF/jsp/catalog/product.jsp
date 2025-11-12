@@ -1,8 +1,15 @@
 <%@ include file="../common/top.jsp"%>
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="BackLink">
-<a href="categoryForm?categoryId=${sessionScope.category.categoryId}">Return to ${sessionScope.category.name}</a>
+    <c:choose>
+        <c:when test="${not empty sessionScope.lastSearchUrl}">
+            <a href="${pageContext.request.contextPath}/${sessionScope.lastSearchUrl}">Return to Search Results</a>
+        </c:when>
+        <c:otherwise>
+            <a href="mainForm">Return to Main Menu</a>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <div id="Catalog">

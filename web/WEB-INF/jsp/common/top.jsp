@@ -65,7 +65,13 @@
     </div>
 
 </div>
-
+<c:if test="${not empty sessionScope.message}">
+<div style="color: red; background-color: #ffeeee; border: 1px solid #ff9999;
+                padding: 6px; margin: 10px auto; width: 60%; text-align: center; border-radius: 6px;">
+        ${sessionScope.message}
+</div>
+    <c:remove var="message" scope="session" />
+</c:if>
 <div id="Content">
 
 
