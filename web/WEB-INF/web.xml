@@ -222,7 +222,7 @@
 
     <servlet>
         <servlet-name>checkout</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.CheckOutServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.CheckOutServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

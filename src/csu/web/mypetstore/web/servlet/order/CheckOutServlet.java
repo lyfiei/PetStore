@@ -1,5 +1,6 @@
-package csu.web.mypetstore.web.servlet;
+package csu.web.mypetstore.web.servlet.order;
 
+import csu.web.mypetstore.domain.Account;
 import csu.web.mypetstore.domain.Cart;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import java.io.IOException;
 public class CheckOutServlet extends HttpServlet {
 
     private static final String CHECKOUT = "/WEB-INF/jsp/cart/checkout.jsp";
+    private static final String SIGN_ON_FORM = "WEB-INF/jsp/account/signon.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -23,6 +25,13 @@ public class CheckOutServlet extends HttpServlet {
         if (cart == null ) {
             // 若购物车为空，则返回购物车页面
             resp.sendRedirect("cartForm");
+            return;
+        }
+        Account account = (Account) session.getAttribute("loginAccount");
+        if (account == null) {
+            // 保存当前请求路径，登录后返回
+            session.setAttribute("redirectAfterLogin", "cartForm");
+            resp.sendRedirect("signOnForm");
             return;
         }
 

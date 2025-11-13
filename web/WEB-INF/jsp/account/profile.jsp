@@ -1,13 +1,14 @@
+
 <%@ include file="../common/top.jsp"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 
 <div id="Catalog">
 
   <c:if test="${not empty updateMsg}">
-    <div style="color: green; font-weight: bold; margin-bottom: 10px;">
-        ${updateMsg}
-    </div>
+  <div style="color: green; font-weight: bold; margin-bottom: 10px;">
+      ${updateMsg}
+  </div>
   </c:if>
 
   <h2>Account Information</h2>
@@ -26,13 +27,10 @@
       <tr><td class="label">Zip:</td><td><input type="text" name="zip" value="${account.zip}" /></td></tr>
       <tr><td class="label">Country:</td><td><input type="text" name="country" value="${account.country}" /></td></tr>
     </table>
-
-        <div id="BackLink">
-            <a href="listOrders">My Orders</a>
-        </div>
-
-
-        <h2>Profile Information</h2>
+    <div id="BackLink">
+      <a href="listOrders">My Orders</a >
+    </div>
+    <h2>Profile Information</h2>
 
     <p>
       Language Preference:
@@ -53,7 +51,7 @@
 
       <input type="checkbox" name="listOption" ${account.listOption ? 'checked' : ''}/> Enable MyList<br />
       <input type="checkbox" name="bannerOption" ${account.bannerOption ? 'checked' : ''}/> Display Banner<br />
-    </p>
+    </p >
 
     <input type="submit" value="Save Changes" class="Button"/>
   </form>

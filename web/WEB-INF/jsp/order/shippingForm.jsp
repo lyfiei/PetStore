@@ -1,4 +1,5 @@
 <%@ page import="csu.web.mypetstore.domain.Account" %>
+
 <%@ include file="../common/top.jsp"%>
 
 <div id="Catalog">

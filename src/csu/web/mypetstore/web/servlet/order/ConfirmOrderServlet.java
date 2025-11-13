@@ -13,7 +13,11 @@ public class ConfirmOrderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+// 解决 POST 请求乱码
+        req.setCharacterEncoding("UTF-8");
 
+// 设置响应内容类型和编码
+        resp.setContentType("text/html;charset=UTF-8");
         HttpSession session = req.getSession();
         Order order = (Order) session.getAttribute("order");
         if (order == null) {

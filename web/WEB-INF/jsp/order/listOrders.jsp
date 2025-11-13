@@ -1,6 +1,7 @@
 <%@ page import="csu.web.mypetstore.domain.Order"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <%@ include file="../common/top.jsp"%>
 
 <div id="Catalog">

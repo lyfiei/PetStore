@@ -94,7 +94,13 @@ public class SignOnServlet extends HttpServlet {
                 LogService logService = new LogService();
                 logService.logLogin(session.getId(), username);
 
-                resp.sendRedirect("mainForm");
+                String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
+                if (redirectUrl != null) {
+                    session.removeAttribute("redirectAfterLogin");
+                    resp.sendRedirect(redirectUrl);
+                } else {
+                    resp.sendRedirect("mainForm"); // 默认登录后回主页
+                }
             }
         }
 

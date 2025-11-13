@@ -1,4 +1,5 @@
 <%@ include file="../common/top.jsp"%>
+
 <div>
 <center>
     <h2>WeChat</h2>
