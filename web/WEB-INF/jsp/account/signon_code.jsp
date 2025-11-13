@@ -26,7 +26,9 @@
     <form id="emailLoginForm" action="emailLogin" method="post">
         <p>Enter the verification code you received:</p>
         <p>
-            Email: <input type="email" name="email" required /> <br />
+           <span style="display:none;">
+                Email: <input type="email" name="email" required />
+            </span>
             Code: <input type="text" name="code" required /> <br />
         </p>
         <input type="submit" value="Login" />

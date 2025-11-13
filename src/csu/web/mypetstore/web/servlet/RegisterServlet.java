@@ -74,6 +74,18 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
+        // 验证码校验
+        String captchaInput = req.getParameter("captchaInput");
+        String captchaSession = (String) req.getSession().getAttribute("captcha");
+
+        if (captchaInput == null || captchaSession == null ||
+                !captchaInput.equalsIgnoreCase(captchaSession)) {
+            req.setAttribute("registerMsg", "验证码错误");
+            req.getRequestDispatcher(REGISTER_FORM).forward(req, resp);
+            return;
+        }
+
+
         // 封装 Account 对象
         Account account = new Account();
         account.setUsername(username);

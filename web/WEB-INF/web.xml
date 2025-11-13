@@ -196,5 +196,15 @@
         <url-pattern>/signOut</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>captcha</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.CaptchaServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>captcha</servlet-name>
+        <url-pattern>/captcha</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>
