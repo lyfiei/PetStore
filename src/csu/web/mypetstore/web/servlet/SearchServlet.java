@@ -1,12 +1,15 @@
 package csu.web.mypetstore.web.servlet;
 
+import csu.web.mypetstore.domain.Account;
 import csu.web.mypetstore.domain.Product;
 import csu.web.mypetstore.service.CatalogService;
+import csu.web.mypetstore.service.LogService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -30,6 +33,17 @@ public class SearchServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/jsp/catalog/searchResult.jsp").forward(request, response);
             return;
         }
+
+        HttpSession session = request.getSession();
+        LogService logService = new LogService();
+        Account account = (Account) session.getAttribute("account");
+        if(account != null){
+            logService.search(session.getId(),account.getUsername(),keyword);
+        }
+        else{
+            logService.search(session.getId(),keyword);
+        }
+
 
         // 调用 Service 层执行搜索
         List<Product> productList = catalogService.searchProductList(keyword);

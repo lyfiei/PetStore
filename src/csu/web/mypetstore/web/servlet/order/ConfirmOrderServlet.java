@@ -1,4 +1,4 @@
-package csu.web.mypetstore.web.servlet;
+package csu.web.mypetstore.web.servlet.order;
 
 import csu.web.mypetstore.domain.Order;
 

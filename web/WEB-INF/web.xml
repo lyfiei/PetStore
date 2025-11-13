@@ -52,7 +52,7 @@
 
     <servlet>
         <servlet-name>NewOrderFormServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.NewOrderFormServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.NewOrderFormServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -174,7 +174,7 @@
 
     <servlet>
         <servlet-name>ShippingFormServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.ShippingFormServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.ShippingFormServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -184,7 +184,7 @@
 
     <servlet>
         <servlet-name>ConfirmOrderServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.ConfirmOrderServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.ConfirmOrderServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConfirmOrderServlet</servlet-name>
@@ -193,7 +193,7 @@
 
     <servlet>
         <servlet-name>NewOrderServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.NewOrderServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.NewOrderServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NewOrderServlet</servlet-name>
@@ -202,7 +202,7 @@
 
     <servlet>
         <servlet-name>ViewOrderServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.ViewOrderServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.ViewOrderServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewOrderServlet</servlet-name>
@@ -211,7 +211,7 @@
 
     <servlet>
         <servlet-name>ListOrdersServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.ListOrdersServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.ListOrdersServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

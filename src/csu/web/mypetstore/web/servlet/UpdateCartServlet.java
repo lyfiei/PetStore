@@ -5,6 +5,7 @@ import csu.web.mypetstore.domain.Cart;
 import csu.web.mypetstore.domain.CartItem;
 import csu.web.mypetstore.persistence.impl.CartDaoImpl;
 import csu.web.mypetstore.service.CartService;
+import csu.web.mypetstore.service.LogService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,10 +29,13 @@ public class UpdateCartServlet extends HttpServlet {
         CartService cartService = new CartService(new CartDaoImpl());
         Account account = (Account) session.getAttribute("loginAccount");
 
+        LogService logService = new LogService();
+        int quantity = 0;
 
         if (account == null) {
             //resp.sendRedirect("signonForm");
             //return;
+
             if (cart == null) {
                 cart = new Cart();
             }
@@ -40,7 +44,7 @@ public class UpdateCartServlet extends HttpServlet {
                 CartItem cartItem = (CartItem) cartItems.next();
                 String itemId = cartItem.getItem().getItemId();
                 try {
-                    int quantity = Integer.parseInt((String) req.getParameter(itemId));
+                    quantity = Integer.parseInt((String) req.getParameter(itemId));
                     cart.setQuantityByItemId(itemId, quantity);
                     if (quantity < 1) {
                         cart.removeItemById(itemId);
@@ -49,6 +53,7 @@ public class UpdateCartServlet extends HttpServlet {
                     e.printStackTrace();
                 }
             }
+            logService.updateCart(session.getId(),quantity);
         }
         else {
             String userId = account.getUsername();
@@ -58,7 +63,7 @@ public class UpdateCartServlet extends HttpServlet {
                 String itemId = cartItem.getItem().getItemId();
                 try {
                     String quantityString = req.getParameter(itemId);
-                    int quantity = Integer.parseInt(quantityString);
+                    quantity = Integer.parseInt(quantityString);
 
                     cartService.updateQuantity(cart, userId, itemId, quantity);
                     if (quantity < 1) {
@@ -69,8 +74,10 @@ public class UpdateCartServlet extends HttpServlet {
                     e.printStackTrace();
                 }
             }
-
+            logService.updateCart(account.getUsername(),session.getId(),quantity);
         }
+
+
         session.setAttribute("cart", cart);
         req.getRequestDispatcher(CART_FORM).forward(req, resp);
     }

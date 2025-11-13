@@ -7,6 +7,7 @@ import csu.web.mypetstore.domain.Item;
 import csu.web.mypetstore.persistence.impl.CartDaoImpl;
 import csu.web.mypetstore.service.CartService;
 import csu.web.mypetstore.service.CatalogService;
+import csu.web.mypetstore.service.LogService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -39,6 +40,8 @@ public class AddItemToCartServlet extends HttpServlet {
             Item item = catalogService.getItem(workingItemId);
             // 1. 内存 Cart 添加商品
             CartItem cartItem = cart.addItem(item, catalogService.isItemInStock(item.getItemId()));
+            LogService logService = new LogService();
+            logService.logAddToCart(session.getId(),item.getItemId(),1);
         }else{
             if (cart == null) {
                 cart = new Cart();
@@ -50,6 +53,8 @@ public class AddItemToCartServlet extends HttpServlet {
             }
             String userId = account.getUsername();
             cartService.addCartItem(cart, workingItemId,userId);
+            LogService logService = new LogService();
+            logService.logAddToCart(session.getId(),account.getUsername(),workingItemId,1);
         }
 
         session.setAttribute("cart", cart);

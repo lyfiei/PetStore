@@ -8,6 +8,7 @@ import csu.web.mypetstore.domain.Cart;
 import csu.web.mypetstore.service.CartService;
 import csu.web.mypetstore.domain.CartItem;
 import csu.web.mypetstore.persistence.impl.CartDaoImpl;
+import csu.web.mypetstore.service.LogService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -89,6 +90,9 @@ public class SignOnServlet extends HttpServlet {
                     }
                     session.setAttribute("cart", mergedCart);
                 }
+
+                LogService logService = new LogService();
+                logService.logLogin(session.getId(), username);
 
                 resp.sendRedirect("mainForm");
             }

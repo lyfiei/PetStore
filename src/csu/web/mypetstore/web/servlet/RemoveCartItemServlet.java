@@ -6,6 +6,7 @@ import csu.web.mypetstore.domain.CartItem;
 import csu.web.mypetstore.domain.Item;
 import csu.web.mypetstore.persistence.impl.CartDaoImpl;
 import csu.web.mypetstore.service.CartService;
+import csu.web.mypetstore.service.LogService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +27,7 @@ public class RemoveCartItemServlet extends HttpServlet {
 
         CartService cartservice = new CartService(new CartDaoImpl());
         Account account = (Account) session.getAttribute("loginAccount");
-
+        LogService logService = new LogService();
 
         if (account == null) {
             //resp.sendRedirect("signonForm");
@@ -35,11 +36,15 @@ public class RemoveCartItemServlet extends HttpServlet {
                 cart = new Cart();
             }
             cart.removeItemById(workingItemId);
+            logService.removeFromCart(session.getId(),workingItemId);
         }else{
             String userId = account.getUsername();
             CartItem cartItem = cartservice.getCartItem(userId, workingItemId);
             cartservice.removeCartItem(cart,userId, workingItemId);
+            logService.removeFromCart(session.getId(),account.getUsername(),workingItemId);
         }
+
+
 
 
 

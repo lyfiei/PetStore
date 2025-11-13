@@ -2,11 +2,13 @@ package csu.web.mypetstore.web.servlet;
 
 import csu.web.mypetstore.domain.Account;
 import csu.web.mypetstore.service.AccountService;
+import csu.web.mypetstore.service.LogService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class RegisterServlet extends HttpServlet {
@@ -90,7 +92,9 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-
+        LogService logService = new LogService();
+        HttpSession session = req.getSession();
+        logService.register(account.getUsername(),session.getId());
         // 注册成功，重定向到登录页
         resp.sendRedirect("signOnForm");
     }
