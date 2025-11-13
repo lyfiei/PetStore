@@ -220,4 +220,37 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>checkout</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.CheckOutServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>checkout</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AlipayPayServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.AlipayPayServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AlipayPayServlet</servlet-name>
+        <url-pattern>/alipayPay</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>WeChatPayServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.WeChatPayServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>WeChatPayServlet</servlet-name>
+        <url-pattern>/weChatPay</url-pattern>
+    </servlet-mapping>
+
+
+
+
 </web-app>

@@ -104,6 +104,7 @@ public class OrderDaoImpl implements OrderDao {
 
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException("insertOrder failed", e);
         }
     }
 

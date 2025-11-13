@@ -1,6 +1,7 @@
 package csu.web.mypetstore.web.servlet.order;
 
 import csu.web.mypetstore.domain.Order;
+import csu.web.mypetstore.service.OrderService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -31,6 +32,8 @@ public class ConfirmOrderServlet extends HttpServlet {
         order.setShipCountry(req.getParameter("shipCountry"));
 
         session.setAttribute("order", order);
+
+
         req.getRequestDispatcher(CONFIRM_ORDER).forward(req, resp);
     }
 }
