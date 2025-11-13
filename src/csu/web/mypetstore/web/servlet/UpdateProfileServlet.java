@@ -23,7 +23,7 @@ public class UpdateProfileServlet extends HttpServlet {
         resp.setContentType("text/html;charset=UTF-8");
 
         HttpSession session = req.getSession();
-        Account account = (Account) session.getAttribute("loginAccount"); // 改成 loginAccount
+        Account account = (Account) session.getAttribute("loginAccount");
 
         if (account == null) {
             resp.sendRedirect("signOnForm");
@@ -55,6 +55,18 @@ public class UpdateProfileServlet extends HttpServlet {
         } else if (email == null || email.trim().isEmpty()) {
             msg = "邮箱不能为空";
         }
+
+        // 邮箱唯一性检查
+        if (msg == null) {
+            AccountService accountService = new AccountService();
+            Account existingAccount = accountService.getAccountByEmail(email);
+
+            // 如果查到的账号不是当前登录用户 → 冲突
+            if (existingAccount != null && !existingAccount.getUsername().equals(account.getUsername())) {
+                msg = "该邮箱已被其他用户使用，请更换邮箱";
+            }
+        }
+
 
         if (msg != null) {
             req.setAttribute("updateMsg", msg);
@@ -90,10 +102,10 @@ public class UpdateProfileServlet extends HttpServlet {
             return;
         }
 
-        // 更新成功，刷新 session 中的 loginAccount
+        // 更新成功
         session.setAttribute("loginAccount", account);
-        req.setAttribute("updateMsg", "资料修改成功！");
-        req.getRequestDispatcher(EDIT_ACCOUNT_FORM).forward(req, resp);
+        session.setAttribute("updateMsg", "资料修改成功！");
+        resp.sendRedirect(req.getContextPath() + "/mainForm");
     }
 
     @Override

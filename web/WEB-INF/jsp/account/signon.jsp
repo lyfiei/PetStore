@@ -1,4 +1,5 @@
 <%@ include file="../common/top.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="Catalog">
 
@@ -14,8 +15,14 @@
       <input type="submit" value="Login" >
     </form>
 
- Need a user name and password?
-  <a href="registerForm">Register Now!</a>
+    Need a user name and password?
+    <a href="registerForm">Register Now!</a>
+    </p>
+
+    <p>
+        Or login with email verification code?
+        <a href="signOnCodeForm">Login with code</a>
+    </p>
 
 </div>
 

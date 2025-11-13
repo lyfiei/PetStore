@@ -255,6 +255,29 @@ public class AccountDaoImpl implements AccountDao {
         }
     }
 
+    @Override
+    public Account getAccountByEmail(String email) {
+        System.out.println("DAO: 查询邮箱: " + email);
+        String sql = "SELECT * FROM ACCOUNT WHERE EMAIL = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, email);
+            System.out.println("DAO: 执行 SQL: " + ps);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Account account = new Account();
+                account.setUsername(rs.getString("USERID"));
+                account.setEmail(rs.getString("EMAIL"));
+                return account;
+            } else {
+                System.out.println("DAO: 没有查询到账户");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }

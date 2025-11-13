@@ -21,4 +21,6 @@ public interface AccountDao {
 
     void updateSignon(Account account);
 
+    Account getAccountByEmail(String email);
+
 }

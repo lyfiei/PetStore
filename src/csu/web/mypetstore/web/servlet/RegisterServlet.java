@@ -62,6 +62,32 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
+        AccountService accountService = new AccountService();
+
+        System.out.println("注册用户名: " + username);
+        System.out.println("注册邮箱: " + email);
+
+        // 处理邮箱重复
+        String emailInput = email != null ? email.trim().toLowerCase() : null;
+        Account existEmail = accountService.getAccountByEmail(emailInput);
+        if (existEmail != null) {
+            req.setAttribute("registerMsg", "该邮箱已注册");
+            req.getRequestDispatcher(REGISTER_FORM).forward(req, resp);
+            return;
+        }
+
+        // 验证码校验
+        String captchaInput = req.getParameter("captchaInput");
+        String captchaSession = (String) req.getSession().getAttribute("captcha");
+
+        if (captchaInput == null || captchaSession == null ||
+                !captchaInput.equalsIgnoreCase(captchaSession)) {
+            req.setAttribute("registerMsg", "验证码错误");
+            req.getRequestDispatcher(REGISTER_FORM).forward(req, resp);
+            return;
+        }
+
+
         // 封装 Account 对象
         Account account = new Account();
         account.setUsername(username);
@@ -82,7 +108,6 @@ public class RegisterServlet extends HttpServlet {
         account.setBannerOption(bannerOption);
 
         // 调用 Service 保存到数据库
-        AccountService accountService = new AccountService();
         try {
             accountService.insertAccount(account);
         } catch (Exception e) {

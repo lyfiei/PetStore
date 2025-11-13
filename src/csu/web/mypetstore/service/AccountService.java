@@ -25,10 +25,17 @@ public class AccountService {
     public void insertAccount(Account account) throws Exception {
         System.out.println("开始注册用户: " + account.getUsername());
         // 检查用户名是否存在
-        Account existing = accountDao.getAccountByUsername(account.getUsername());
-        if (existing != null) {
+        Account existingUser = accountDao.getAccountByUsername(account.getUsername());
+        if (existingUser != null) {
             throw new Exception("用户名已存在");
         }
+
+        // 新增：检查邮箱是否存在
+        Account existingEmail = accountDao.getAccountByEmail(account.getEmail());
+        if (existingEmail != null) {
+            throw new Exception("该邮箱已注册");
+        }
+
         Connection conn = null;
         try {
             conn = DBUtil.getConnection();
@@ -80,6 +87,15 @@ public class AccountService {
                 conn.close();
             }
         }
+    }
+    public Account getAccountByEmail(String email) {
+        System.out.println("AccountService: 检查邮箱 " + email);
+        if (email == null || email.isEmpty()){
+            System.out.println("邮箱检查为空");
+            return null;}
+        Account account = accountDao.getAccountByEmail(email);
+        System.out.println("AccountService: 查询结果: " + account);
+        return account;
     }
 
 
