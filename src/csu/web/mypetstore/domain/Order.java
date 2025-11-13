@@ -195,8 +195,8 @@ public class Order implements Serializable {
         return shipToFirstName;
     }
 
-    public void setShipToFirstName(String shipFoFirstName) {
-        this.shipToFirstName = shipFoFirstName;
+    public void setShipToFirstName(String shipToFirstName) {
+        this.shipToFirstName = shipToFirstName;
     }
 
     public String getShipToLastName() {

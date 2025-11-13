@@ -219,5 +219,32 @@
         <url-pattern>/listOrders</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>addressList</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.AddressListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addressList</servlet-name>
+        <url-pattern>/addressList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addAddress</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.AddAddressServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addAddress</servlet-name>
+        <url-pattern>/addAddress</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addAddressForm</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.AddAddressFormServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addAddressForm</servlet-name>
+        <url-pattern>/addAddressForm</url-pattern>
+    </servlet-mapping>
 
 </web-app>

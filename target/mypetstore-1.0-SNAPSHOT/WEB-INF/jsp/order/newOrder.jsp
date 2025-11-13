@@ -1,4 +1,3 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="csu.web.mypetstore.domain.Account" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ include file="../common/top.jsp"%>
