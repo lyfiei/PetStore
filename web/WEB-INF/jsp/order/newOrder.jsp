@@ -28,8 +28,7 @@
             <tr>
                 <td>Card Number:</td>
                 <td>
-                    <input type="text" name="Number" value="<%= account != null ? account.getPhone():"" %>"/> * Use a fake
-                    number!
+                    <input type="text" name="Number" value="<%= account != null ? account.getPhone():"" %>"/>
                 </td>
             </tr>
             <tr>
