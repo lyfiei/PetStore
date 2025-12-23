@@ -240,4 +240,14 @@
         <url-pattern>/weChatPay</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>OrderUnifiedServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.OrderUnifiedServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OrderUnifiedServlet</servlet-name>
+        <url-pattern>/orderUnified</url-pattern>
+    </servlet-mapping>
+
 </web-app>
