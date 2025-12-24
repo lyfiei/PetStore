@@ -13,24 +13,24 @@ import java.io.IOException;
 public class UpdateProfileServlet extends HttpServlet {
 
     private static final String EDIT_ACCOUNT_FORM = "WEB-INF/jsp/account/profile.jsp";
-    private static final String SIGN_ON_FORM = "WEB-INF/jsp/account/signon.jsp";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         req.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/html;charset=UTF-8");
+        // 改为 text/plain，方便 Ajax 接收简单字符串
+        resp.setContentType("text/plain;charset=UTF-8");
 
         HttpSession session = req.getSession();
         Account account = (Account) session.getAttribute("loginAccount");
 
         if (account == null) {
-            resp.sendRedirect("signOnForm");
+            resp.getWriter().write("session_expired"); // 告知前端登录过期
             return;
         }
 
-        // 获取表单参数
+        // 1. 接收参数
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
         String email = req.getParameter("email");
@@ -43,38 +43,34 @@ public class UpdateProfileServlet extends HttpServlet {
         String country = req.getParameter("country");
         String languagePreference = req.getParameter("languagePreference");
         String favouriteCategoryId = req.getParameter("favouriteCategoryId");
-        boolean listOption = "on".equals(req.getParameter("listOption"));
-        boolean bannerOption = "on".equals(req.getParameter("bannerOption"));
+        boolean listOption = "on".equals(req.getParameter("listOption")) || "true".equals(req.getParameter("listOption"));
+        boolean bannerOption = "on".equals(req.getParameter("bannerOption")) || "true".equals(req.getParameter("bannerOption"));
 
-        // 简单校验
-        String msg = null;
+        // 2. 校验
+        String errorMsg = null;
         if (firstName == null || firstName.trim().isEmpty()) {
-            msg = "名字不能为空";
+            errorMsg = "名字不能为空";
         } else if (lastName == null || lastName.trim().isEmpty()) {
-            msg = "姓氏不能为空";
+            errorMsg = "姓氏不能为空";
         } else if (email == null || email.trim().isEmpty()) {
-            msg = "邮箱不能为空";
+            errorMsg = "邮箱不能为空";
         }
 
-        // 邮箱唯一性检查
-        if (msg == null) {
-            AccountService accountService = new AccountService();
+        AccountService accountService = new AccountService();
+        if (errorMsg == null) {
             Account existingAccount = accountService.getAccountByEmail(email);
-
-            // 如果查到的账号不是当前登录用户 → 冲突
             if (existingAccount != null && !existingAccount.getUsername().equals(account.getUsername())) {
-                msg = "该邮箱已被其他用户使用，请更换邮箱";
+                errorMsg = "该邮箱已被其他用户使用，请更换邮箱";
             }
         }
 
-
-        if (msg != null) {
-            req.setAttribute("updateMsg", msg);
-            req.getRequestDispatcher(EDIT_ACCOUNT_FORM).forward(req, resp);
+        // 如果校验失败，直接写回错误信息
+        if (errorMsg != null) {
+            resp.getWriter().write(errorMsg);
             return;
         }
 
-        // 更新 Account 对象
+        // 3. 更新对象
         account.setFirstName(firstName);
         account.setLastName(lastName);
         account.setEmail(email);
@@ -90,30 +86,22 @@ public class UpdateProfileServlet extends HttpServlet {
         account.setListOption(listOption);
         account.setBannerOption(bannerOption);
 
-        // 调用 Service 更新数据库
-        AccountService accountService = new AccountService();
+        // 4. 执行数据库更新
         try {
             accountService.updateAccount(account);
+            session.setAttribute("loginAccount", account);
+            // 成功后，给前端返回 success 信号
+            resp.getWriter().write("success");
         } catch (Exception e) {
-            e.printStackTrace();
-            e.printStackTrace();
-            req.setAttribute("updateMsg", "资料更新失败：" + e.getMessage());
-            req.getRequestDispatcher(EDIT_ACCOUNT_FORM).forward(req, resp);
-            return;
+            resp.getWriter().write("数据库更新失败：" + e.getMessage());
         }
-
-        // 更新成功
-        session.setAttribute("loginAccount", account);
-        session.setAttribute("updateMsg", "资料修改成功！");
-        resp.sendRedirect(req.getContextPath() + "/mainForm");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         HttpSession session = req.getSession();
-        Account account = (Account) session.getAttribute("loginAccount");
-        if (account == null) {
+        if (session.getAttribute("loginAccount") == null) {
             resp.sendRedirect("signOnForm");
             return;
         }
