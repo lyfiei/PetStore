@@ -117,9 +117,7 @@ a.Button:hover {
     background-color: #000;
     color: #fff;
     line-height: 9ex;
-    voice-family: "\"}\"";
     voice-family: inherit;
-    height: 9ex;
 }
 
 body>#Logo {
