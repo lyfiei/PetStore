@@ -2,7 +2,7 @@
 <%@ include file="../common/top.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
 <div id="Catalog">
     <h2>Login with Email Verification Code</h2>

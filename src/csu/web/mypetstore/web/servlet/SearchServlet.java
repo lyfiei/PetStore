@@ -23,7 +23,7 @@ public class SearchServlet extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
 
         // 获取表单提交的搜索关键字
         String keyword = request.getParameter("keyword");

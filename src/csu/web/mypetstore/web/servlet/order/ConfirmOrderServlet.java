@@ -17,7 +17,7 @@ public class ConfirmOrderServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
 
 // 设置响应内容类型和编码
-        resp.setContentType("text/html;charset=UTF-8");
+        resp.setContentType("text/html; charset=UTF-8");
         HttpSession session = req.getSession();
         Order order = (Order) session.getAttribute("order");
         if (order == null) {

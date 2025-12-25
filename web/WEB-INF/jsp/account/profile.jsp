@@ -1,5 +1,5 @@
 <%@ include file="../common/top.jsp"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div id="Catalog">

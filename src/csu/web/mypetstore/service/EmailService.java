@@ -30,7 +30,7 @@ public class EmailService {
             message.setFrom(new InternetAddress(FROM_EMAIL));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
             message.setSubject(subject);
-            message.setContent(content, "text/html;charset=UTF-8");
+            message.setContent(content, "text/html; charset=UTF-8");
             Transport.send(message);
             System.out.println("邮件已发送到 " + toEmail);
         } catch (MessagingException e) {

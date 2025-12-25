@@ -17,10 +17,10 @@ public class ProfileFormServlet extends HttpServlet {
 
         Account loginAccount = (Account) req.getSession().getAttribute("loginAccount");
 
-        System.out.println("=== ProfileFormServlet Debug ===");
-        System.out.println("loginAccount from session: " + loginAccount);
-        System.out.println("Session ID: " + req.getSession().getId());
-        System.out.println("Session isNew: " + req.getSession().isNew());
+        //System.out.println("=== ProfileFormServlet Debug ===");
+        //System.out.println("loginAccount from session: " + loginAccount);
+        //System.out.println("Session ID: " + req.getSession().getId());
+        //System.out.println("Session isNew: " + req.getSession().isNew());
 
         if (loginAccount != null) {
             System.out.println("loginAccount username: " + loginAccount.getUsername());
@@ -28,14 +28,14 @@ public class ProfileFormServlet extends HttpServlet {
             AccountService accountService = new AccountService();
             Account account = accountService.getAccountByUsername(loginAccount.getUsername());
 
-            System.out.println("Account from database: " + account);
-            System.out.println("Account username: " + account.getUsername());
-            System.out.println("Account firstName: " + account.getFirstName());
-            System.out.println("Account lastName: " + account.getLastName());
+            //System.out.println("Account from database: " + account);
+            //System.out.println("Account username: " + account.getUsername());
+            //System.out.println("Account firstName: " + account.getFirstName());
+            //System.out.println("Account lastName: " + account.getLastName());
 
 
             // 使用request属性而不是session
-            req.setAttribute("account", account);
+            req.setAttribute("account", loginAccount);
             System.out.println("Set account to request attribute");
         } else {
             resp.sendRedirect("signOnForm");
