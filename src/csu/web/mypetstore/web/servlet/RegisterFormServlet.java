@@ -8,7 +8,6 @@ import java.io.IOException;
 
 public class RegisterFormServlet extends HttpServlet {
 
-    // 对应 JSP 注册表单路径
     private static final String REGISTER_FORM = "WEB-INF/jsp/account/register.jsp";
 
     @Override

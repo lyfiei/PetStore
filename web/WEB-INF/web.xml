@@ -350,6 +350,14 @@
         <url-pattern>/captcha</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ValidateAccountServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.ValidateAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ValidateAccountServlet</servlet-name>
+        <url-pattern>/validateAccount</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>OrderUnifiedServlet</servlet-name>

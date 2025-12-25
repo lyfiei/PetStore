@@ -14,7 +14,7 @@ public class ProfileFormServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 从 session 里获取登录用户
+
         Account loginAccount = (Account) req.getSession().getAttribute("loginAccount");
 
         System.out.println("=== ProfileFormServlet Debug ===");
@@ -42,7 +42,6 @@ public class ProfileFormServlet extends HttpServlet {
             return;
         }
 
-        // 转发到 profile.jsp
         req.getRequestDispatcher(PROFILE_FORM).forward(req, resp);
     }
 }

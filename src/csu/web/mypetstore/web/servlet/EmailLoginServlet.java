@@ -14,6 +14,10 @@ public class EmailLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // 设置响应格式为文本（或 JSON）
+        response.setContentType("text/plain;charset=UTF-8");
+
         String email = request.getParameter("email");
         String code = request.getParameter("code");
 
@@ -21,28 +25,28 @@ public class EmailLoginServlet extends HttpServlet {
         String savedCode = (String) session.getAttribute("emailCode");
         String savedEmail = (String) session.getAttribute("emailAccount");
 
+        // 1. 校验验证码是否过期
         if (savedCode == null || savedEmail == null) {
-            request.setAttribute("msg", "验证码已过期，请重新获取");
-            request.getRequestDispatcher("/WEB-INF/jsp/account/signon_code.jsp").forward(request, response);
+            response.getWriter().write("验证码已过期，请重新获取");
             return;
         }
 
+        // 2. 校验验证码是否匹配
         if (!savedCode.equals(code) || !savedEmail.equals(email)) {
-            request.setAttribute("msg", "验证码错误");
-            request.getRequestDispatcher("/WEB-INF/jsp/account/signon_code.jsp").forward(request, response);
+            response.getWriter().write("验证码错误");
             return;
         }
 
+        // 3. 校验用户是否存在
         AccountService service = new AccountService();
         Account account = service.getAccountByEmail(email);
 
         if (account == null) {
-            request.setAttribute("msg", "该邮箱未注册，请先注册账号");
-            request.getRequestDispatcher("/WEB-INF/jsp/account/register.jsp").forward(request, response);
+            response.getWriter().write("该邮箱未注册，请先注册账号");
             return;
         }
 
-        // 验证通过，登录
+        // 4. 验证通过，存入 Session
         session.setAttribute("loginAccount", account);
 
         if(account.isListOption()){
@@ -51,11 +55,8 @@ public class EmailLoginServlet extends HttpServlet {
             session.setAttribute("myList", myList);
         }
 
-        // 跳转主页
-        response.sendRedirect(request.getContextPath() + "/mainForm");
-
-
+        // 5. 关键：成功时不重定向，而是给前端发送 "success" 信号
+        response.getWriter().write("success");
     }
-
 }
 
