@@ -26,7 +26,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JSTL（可选） -->
+        <!-- JSTL -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
@@ -59,6 +59,13 @@
             <artifactId>stripes</artifactId>
             <version>1.6.0</version> <!-- 或其他版本 -->
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.83</version>
+        </dependency>
+
 
 
     </dependencies>

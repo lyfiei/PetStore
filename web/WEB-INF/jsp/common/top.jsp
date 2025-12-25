@@ -10,6 +10,8 @@
 
     <title>MyPetStore</title>
     <link rel="StyleSheet" href="css/mypetstore.css" type="text/css" media="screen" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="js/search.js"></script>
 
 </head>
 
@@ -45,10 +47,21 @@
 
     <div id="Search">
         <div id="SearchContent">
-            <form action="search" method="post">
-                <input type="text" name="keyword" size="14" />
-                <input type="submit" value="Search" />
-            </form>
+            <div class="search-wrapper">
+                <form action="search" method="post" onsubmit="return checkSearch();">
+                    <input type="text" name="keyword" size="14" id="keyword" />
+                    <input type="submit" value="Search" />
+                </form>
+                <div id="productAutoComplete">
+                    <ul id="productAutoList">
+<%--                        <li class="productAutoItem"> Amazon Parrot</li>--%>
+<%--                        <li class="productAutoItem"> Amazon Parrot</li>--%>
+<%--                        <li class="productAutoItem"> Amazon Parrot</li>--%>
+<%--                        <li class="productAutoItem"> Amazon Parrot</li>--%>
+
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -65,13 +78,13 @@
     </div>
 
 </div>
-<c:if test="${not empty sessionScope.message}">
-<div style="color: red; background-color: #ffeeee; border: 1px solid #ff9999;
-                padding: 6px; margin: 10px auto; width: 60%; text-align: center; border-radius: 6px;">
-        ${sessionScope.message}
-</div>
-    <c:remove var="message" scope="session" />
-</c:if>
+<%--<c:if test="${not empty sessionScope.message}">--%>
+<%--<div style="color: red; background-color: #ffeeee; border: 1px solid #ff9999;--%>
+<%--                padding: 6px; margin: 10px auto; width: 60%; text-align: center; border-radius: 6px;">--%>
+<%--        ${sessionScope.message}--%>
+<%--</div>--%>
+<%--    <c:remove var="message" scope="session" />--%>
+<%--</c:if>--%>
 <div id="Content">
 
 
