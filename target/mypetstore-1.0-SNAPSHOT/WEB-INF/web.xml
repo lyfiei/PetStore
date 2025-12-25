@@ -131,45 +131,6 @@
         <url-pattern>/signOn</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>RegisterFormServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.RegisterFormServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>RegisterFormServlet</servlet-name>
-        <url-pattern>/registerForm</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.RegisterServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/register</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ProfileFormServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.ProfileFormServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>ProfileFormServlet</servlet-name>
-        <url-pattern>/profileForm</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>UpdateProfileServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.UpdateProfileServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>UpdateProfileServlet</servlet-name>
-        <url-pattern>/updateProfile</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>SearchServlet</servlet-name>
@@ -228,6 +189,47 @@
     <servlet-mapping>
         <servlet-name>ListOrdersServlet</servlet-name>
         <url-pattern>/listOrders</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>RegisterFormServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.RegisterFormServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RegisterFormServlet</servlet-name>
+        <url-pattern>/registerForm</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.RegisterServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProfileFormServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.ProfileFormServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ProfileFormServlet</servlet-name>
+        <url-pattern>/profileForm</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateProfileServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.UpdateProfileServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateProfileServlet</servlet-name>
+        <url-pattern>/updateProfile</url-pattern>
     </servlet-mapping>
 
 
@@ -309,4 +311,14 @@
         <url-pattern>/captcha</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>OrderUnifiedServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.OrderUnifiedServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OrderUnifiedServlet</servlet-name>
+        <url-pattern>/orderUnified</url-pattern>
+    </servlet-mapping>
 </web-app>

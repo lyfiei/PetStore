@@ -52,7 +52,7 @@
 
     <servlet>
         <servlet-name>NewOrderFormServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.NewOrderFormServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.NewOrderFormServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -131,45 +131,6 @@
         <url-pattern>/signOn</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>RegisterFormServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.RegisterFormServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>RegisterFormServlet</servlet-name>
-        <url-pattern>/registerForm</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.RegisterServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/register</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ProfileFormServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.ProfileFormServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>ProfileFormServlet</servlet-name>
-        <url-pattern>/profileForm</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>UpdateProfileServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.UpdateProfileServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>UpdateProfileServlet</servlet-name>
-        <url-pattern>/updateProfile</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>SearchServlet</servlet-name>
@@ -185,7 +146,7 @@
 
     <servlet>
         <servlet-name>ShippingFormServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.ShippingFormServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.ShippingFormServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -195,7 +156,7 @@
 
     <servlet>
         <servlet-name>ConfirmOrderServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.ConfirmOrderServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.ConfirmOrderServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConfirmOrderServlet</servlet-name>
@@ -204,7 +165,7 @@
 
     <servlet>
         <servlet-name>NewOrderServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.NewOrderServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.NewOrderServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NewOrderServlet</servlet-name>
@@ -213,7 +174,7 @@
 
     <servlet>
         <servlet-name>ViewOrderServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.ViewOrderServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.ViewOrderServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewOrderServlet</servlet-name>
@@ -222,7 +183,7 @@
 
     <servlet>
         <servlet-name>ListOrdersServlet</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.ListOrdersServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.ListOrdersServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -274,7 +235,7 @@
 
     <servlet>
         <servlet-name>checkout</servlet-name>
-        <servlet-class>csu.web.mypetstore.web.servlet.CheckOutServlet</servlet-class>
+        <servlet-class>csu.web.mypetstore.web.servlet.order.CheckOutServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
