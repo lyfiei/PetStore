@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class RemoveCartItemServlet extends HttpServlet {
     private String ERROR_FORM = "/WEB-INF/jsp/common/error.jsp";
@@ -30,8 +33,6 @@ public class RemoveCartItemServlet extends HttpServlet {
         LogService logService = new LogService();
 
         if (account == null) {
-            //resp.sendRedirect("signonForm");
-            //return;
             if (cart == null) {
                 cart = new Cart();
             }
@@ -44,18 +45,20 @@ public class RemoveCartItemServlet extends HttpServlet {
             logService.removeFromCart(session.getId(),account.getUsername(),workingItemId);
         }
 
-
-
-
-
-        //if (cartItem == null) {
-        //    session.setAttribute("errorMessage", "Attempted to remove null CartItem from Cart.");
-        //    req.getRequestDispatcher(ERROR_FORM).forward(req, resp);
-        //} else {
-        //    req.getRequestDispatcher(CART_FORM).forward(req, resp);
-        //}
-
         session.setAttribute("cart", cart);
-        req.getRequestDispatcher(CART_FORM).forward(req, resp);
+
+        BigDecimal subTotal = cart.getSubTotal();
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        String subTotalStr = currencyFormat.format(subTotal);
+
+        String jsonResponse = String.format(
+                "{\"status\":\"success\", \"subTotal\": \"%s\"}",
+                subTotalStr
+        );
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(jsonResponse);
+
     }
 }

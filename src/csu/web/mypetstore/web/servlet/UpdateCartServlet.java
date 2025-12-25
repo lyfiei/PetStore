@@ -13,8 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class UpdateCartServlet extends HttpServlet {
@@ -23,6 +26,89 @@ public class UpdateCartServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 1. 设置请求和响应编码，防止乱码
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/plain;charset=UTF-8");
+
+        HttpSession session = req.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        Account account = (Account) session.getAttribute("loginAccount");
+
+        LogService logService = new LogService();
+
+        // 2. 直接获取 AJAX 发来的两个参数
+        String itemId = req.getParameter("itemId");
+        String quantityStr = req.getParameter("quantity");
+
+        // 简单校验
+        if (itemId == null || quantityStr == null) {
+            resp.setStatus(400); // 参数不对，报错
+            return;
+        }
+
+        try {
+            int quantity = Integer.parseInt(quantityStr);
+            CartService cartService = new CartService(new CartDaoImpl());
+
+            // 3. 核心业务逻辑（保留你原本的判断逻辑）
+            if (account == null) {
+                // 未登录用户的购物车逻辑
+                cart.setQuantityByItemId(itemId, quantity);
+                if (quantity < 1) {
+                    cart.removeItemById(itemId);
+                }
+                logService.updateCart(session.getId(),quantity);
+            } else {
+                // 已登录用户的购物车逻辑
+                cartService.updateQuantity(cart, account.getUsername(), itemId, quantity);
+                if (quantity < 1) {
+                    cartService.removeCartItem(cart, account.getUsername(), itemId);
+                }
+
+                logService.updateCart(account.getUsername(),session.getId(),quantity);
+            }
+
+            // 4. 更新 Session
+            session.setAttribute("cart", cart);
+
+            BigDecimal subTotal = cart.getSubTotal();
+            BigDecimal itemTotal = BigDecimal.ZERO;
+            Iterator<CartItem> items = cart.getAllCartItems();
+            while (items.hasNext()) {
+                CartItem cartItem = items.next();
+                if (cartItem.getItem().getItemId().equals(itemId)) {
+                    itemTotal = cartItem.calculateTotal();
+                    break;
+                }
+            }
+
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
+            String subTotalStr = currencyFormat.format(subTotal);
+            String itemTotalStr = currencyFormat.format(itemTotal);
+
+            String jsonResponse = String.format(
+                    "{\"itemTotal\": \"%s\", \"subTotal\": \"%s\"}",
+                    itemTotalStr,
+                    subTotalStr
+            );
+
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(jsonResponse);
+
+
+
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            resp.setStatus(400); // 告诉前端数字格式不对
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.setStatus(500); // 服务器内部错误
+        }
+    }
+
+    /*protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
 
@@ -80,6 +166,6 @@ public class UpdateCartServlet extends HttpServlet {
 
         session.setAttribute("cart", cart);
         req.getRequestDispatcher(CART_FORM).forward(req, resp);
-    }
+    }*/
 
 }

@@ -49,12 +49,13 @@ public class CartItem implements Serializable {
         calculateTotal();
     }
 
-    private void calculateTotal() {
+    public BigDecimal calculateTotal() {
         if (item != null && item.getListPrice() != null) {
             total = item.getListPrice().multiply(new BigDecimal(quantity));
         } else {
             total = null;
         }
+        return total;
     }
 
 }

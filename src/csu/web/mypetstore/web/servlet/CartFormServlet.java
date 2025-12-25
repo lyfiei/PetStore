@@ -24,8 +24,6 @@ public class CartFormServlet extends HttpServlet {
         Account account = (Account) req.getSession().getAttribute("loginAccount");
         Cart cart = (Cart) session.getAttribute("cart");
         if (account == null) {
-            //resp.sendRedirect("signonForm");
-            //return;
 
             if(cart == null) {
                 cart = new Cart();

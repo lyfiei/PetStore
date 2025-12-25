@@ -9,7 +9,8 @@
 <head>
 
     <title>MyPetStore</title>
-    <link rel="StyleSheet" href="css/mypetstore.css" type="text/css" media="screen" />
+    <<link rel="StyleSheet" href="css/mypetstore.css?v=20231223" type="text/css" media="screen" />
+
 
 </head>
 
@@ -53,20 +54,27 @@
     </div>
 
     <div id="QuickLinks">
-        <a href="categoryForm?categoryId=FISH"><img src="images/sm_fish.gif" /></a>
+        <a href="categoryForm?categoryId=FISH" onmouseover="showCategory(this, 'FISH')" onmouseout="hideCategory()"><img src="images/sm_fish.gif" /></a>
         <img src="images/separator.gif" />
-        <a href="categoryForm?categoryId=DOGS"><img src="images/sm_dogs.gif" /></a>
+        <a href="categoryForm?categoryId=DOGS" onmouseover="showCategory(this, 'DOGS')" onmouseout="hideCategory()"><img src="images/sm_dogs.gif" /></a>
         <img src="images/separator.gif" />
-        <a href="categoryForm?categoryId=REPTILES"><img src="images/sm_reptiles.gif" /></a>
+        <a href="categoryForm?categoryId=REPTILES" onmouseover="showCategory(this, 'REPTILES')" onmouseout="hideCategory()"><img src="images/sm_reptiles.gif" /></a>
         <img src="images/separator.gif" />
-        <a href="categoryForm?categoryId=CATS"><img src="images/sm_cats.gif" /></a>
+        <a href="categoryForm?categoryId=CATS" onmouseover="showCategory(this, 'CATS')" onmouseout="hideCategory()"><img src="images/sm_cats.gif" /></a>
         <img src="images/separator.gif" />
-        <a href="categoryForm?categoryId=BIRDS"><img src="images/sm_birds.gif" /></a>
+        <a href="categoryForm?categoryId=BIRDS" onmouseover="showCategory(this, 'BIRDS')" onmouseout="hideCategory()"><img src="images/sm_birds.gif" /></a>
     </div>
 
-  </div>
+    <div id="hover-menu-container"></div>
 
-  <div id="Content">
+    <script type="text/javascript">
+        var contextPath = "${pageContext.request.contextPath}";
+    </script>
+
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.js"></script>
+
+
+    <div id="Content">
 
     <c:if test="${not empty sessionScope.updateMsg}">
     <div style="background-color:#e6ffe6; color:#006600; font-weight:bold; padding:8px; border-radius:6px; margin:10px 0; text-align:center;">
@@ -74,6 +82,8 @@
     </div>
       <c:remove var="updateMsg" scope="session"/>
     </c:if>
+
+
 
 
 

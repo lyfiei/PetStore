@@ -81,6 +81,17 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>CategoryAjaxServlet</servlet-name>
+        <servlet-class>csu.web.mypetstore.web.servlet.CategoryAjaxServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CategoryAjaxServlet</servlet-name>
+        <url-pattern>/categoryAjax</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>RemoveCartItemServlet</servlet-name>
         <servlet-class>csu.web.mypetstore.web.servlet.RemoveCartItemServlet</servlet-class>
     </servlet>
@@ -297,6 +308,5 @@
         <servlet-name>captcha</servlet-name>
         <url-pattern>/captcha</url-pattern>
     </servlet-mapping>
-
 
 </web-app>
