@@ -24,7 +24,7 @@ public class ListOrdersServlet extends HttpServlet {
         Account account = (Account) session.getAttribute("loginAccount");
 
         if (account == null) {
-            resp.sendRedirect("signonForm");
+            resp.sendRedirect("signOnForm");
             return;
         }
 
