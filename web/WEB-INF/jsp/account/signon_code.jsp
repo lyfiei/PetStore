@@ -7,30 +7,51 @@
     <h2>Login with Email Verification Code</h2>
     <p id="codeMsg"><font color="red">${requestScope.signOnMsg}</font></p>
 
-    <p>
-        Email: <input type="email" name="email" id="emailInput" required
-                      value="${requestScope.emailPrefill}" />
-        <input type="button" id="sendBtn" value="Send Verification Code" />
-    </p>
-
-    <hr/>
-
     <form id="loginForm">
-        <p>Enter the verification code you received:</p>
         <input type="hidden" name="email" id="hiddenEmail" />
-        <p>
-            Code: <input type="text" name="code" id="codeInput" required /> <br />
-        </p>
-        <input type="submit" value="Login" />
+
+        <table>
+            <tr>
+                <td style="text-align: right; width: 80px;">Email:</td>
+                <td style="text-align: left;">
+                    <input type="email" name="email" id="emailInput" required
+                           value="${requestScope.emailPrefill}" />
+                    <input type="button" id="sendBtn" value="Send Verification Code" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><hr/></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td style="text-align: left;">Enter the verification code you received:</td>
+            </tr>
+
+            <tr>
+                <td style="text-align: right;">Code:</td>
+                <td style="text-align: left;">
+                    <input type="text" name="code" id="codeInput" required />
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td style="text-align: left;">
+                    <input type="submit" value="Login" />
+                </td>
+            </tr>
+        </table>
     </form>
 
-    <hr/>
+    <hr style="width: 50%; margin: 20px auto;"/>
     <p>Back to standard login? <a href="signOnForm">Login with username/password</a></p>
 </div>
 
 <script>
     $(function() {
-        // --- 原有的发送验证码逻辑 ---
+        // --- 逻辑部分完全保持不变 ---
         $("#sendBtn").click(function() {
             var email = $("#emailInput").val();
             if(email === "") {
@@ -64,31 +85,22 @@
             });
         });
 
-        // --- 新增：处理登录表单 Ajax 提交 ---
         $("#loginForm").submit(function(e) {
-            e.preventDefault(); // 阻止表单默认跳转行为
-
+            e.preventDefault();
             var email = $("#hiddenEmail").val();
             var code = $("#codeInput").val();
-
             if(!email) {
                 $("#codeMsg").html("<font color='red'>请先获取并填写验证码</font>");
                 return;
             }
-
             $.ajax({
                 url: "emailLogin",
                 type: "POST",
-                data: {
-                    email: email,
-                    code: code
-                },
+                data: { email: email, code: code },
                 success: function(response) {
                     if (response === "success") {
-                        // 登录成功：由前端控制跳转
-                        window.location.href = "mainForm"; // 或者你的 main.jsp 对应的 Servlet 路径
+                        window.location.href = "mainForm";
                     } else {
-                        // 登录失败：在当前页显示后端返回的错误信息
                         $("#codeMsg").html("<font color='red'>" + response + "</font>");
                     }
                 },
