@@ -27,18 +27,18 @@ public class SearchServlet extends HttpServlet {
 
         // 获取表单提交的搜索关键字
         String keyword = request.getParameter("keyword");
-
+//
         if (keyword == null || keyword.trim().isEmpty()) {
-            // 如果为空，使用 redirect 回到来源页面并把提示放到 session 中（避免 forward 导致的浏览器历史问题）
-            HttpSession session = request.getSession();
-            session.setAttribute("message", "Please enter a search keyword.");
-            String referer = request.getHeader("Referer");
-            if (referer == null || referer.isEmpty()) {
-                // fallback 到主页或 category 列表
-                response.sendRedirect(request.getContextPath() + "/mainForm");
-            } else {
-                response.sendRedirect(referer);
-            }
+//            // 如果为空，使用 redirect 回到来源页面并把提示放到 session 中（避免 forward 导致的浏览器历史问题）
+//            HttpSession session = request.getSession();
+//            session.setAttribute("message", "Please enter a search keyword.");
+//            String referer = request.getHeader("Referer");
+//            if (referer == null || referer.isEmpty()) {
+//                // fallback 到主页或 category 列表
+//                response.sendRedirect(request.getContextPath() + "/mainForm");
+//            } else {
+//                response.sendRedirect(referer);
+//            }
             return;
         }
 

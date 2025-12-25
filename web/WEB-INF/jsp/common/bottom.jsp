@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 </div>
 
 <div id="Footer">
@@ -16,6 +18,8 @@
     </div>
 
 </div>
+
+<script src="js/productAuto.js"></script>
 
 </body>
 </html>
