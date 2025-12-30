@@ -322,31 +322,66 @@ body>#Banner {
     text-align:left;
 }
 
-     /* 悬浮菜单容器 */
- #hover-menu-container {
-     /* 【核心】绝对定位：必须有 !important 确保覆盖默认属性 */
-     position: absolute !important;
+.search-wrapper {
+    position: relative;
+    display: inline-block;
+}
 
-     /* 默认隐藏 */
-     display: none;
+#productAutoComplete {
+    position: relative;
+    top: -28.5px;
+    left: 0;
+    width: 100%;
+    background: #ccc;
+    border: 1px solid #999;
+    z-index: 1000;
+    display:none;
+}
 
-     /* 【核心】层级：确保在最上层 */
-     z-index: 99999 !important;
+#productAutoList{
+    margin:0;
+    padding: 0;
+    border:1px solid #aaa;
+}
 
-     /* 【问题修复】背景色：加 !important 确保不透明 */
-     background-color: #FFFFFF !important;
+.productAutoItem{
+    list-style: none;
+    height: 20px;
+    Line-height: 20px;
+    font-size: 14px;
+    text-align: left;
+    padding-left: 5px;
+    margin-top: 3px;
+    border-bottom: 1px solid #666;
+    color: #005e21;
+    cursor: pointer;
+}
 
-     /* 【样式调整】改为自动宽度，而不是固定的 800px */
-     width: auto !important;
-     min-width: 160px; /* 给个最小宽度，防止太窄 */
-     max-width: 300px; /* 防止太宽 */
+/* 悬浮菜单容器 */
+#hover-menu-container {
+    /* 【核心】绝对定位：必须有 !important 确保覆盖默认属性 */
+    position: absolute !important;
 
-     /* 装饰 */
-     border: 1px solid #ccc;
-     box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-     padding: 10px 0; /* 上下留白 */
-     border-radius: 4px;
- }
+    /* 默认隐藏 */
+    display: none;
+
+    /* 【核心】层级：确保在最上层 */
+    z-index: 99999 !important;
+
+    /* 【问题修复】背景色：加 !important 确保不透明 */
+    background-color: #FFFFFF !important;
+
+    /* 【样式调整】改为自动宽度，而不是固定的 800px */
+    width: auto !important;
+    min-width: 160px; /* 给个最小宽度，防止太窄 */
+    max-width: 300px; /* 防止太宽 */
+
+    /* 装饰 */
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    padding: 10px 0; /* 上下留白 */
+    border-radius: 4px;
+}
 
 /* 内容布局：改为竖向排列 (Column) */
 .menu-content {

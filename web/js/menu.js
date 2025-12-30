@@ -82,7 +82,7 @@ function renderMenu(data) {
 
         // 遍历下面的具体项目
         for (var j = 0; j < product.items.length; j++) {
-            var item = product.items[j];s
+            var item = product.items[j];
 
             html += "<a href='itemForm?itemId=" + item.itemId + "' class='menu-item-row'>";
             html += item.desc + " ($" + item.price + ")";
