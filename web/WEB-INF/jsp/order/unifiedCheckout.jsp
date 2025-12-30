@@ -13,7 +13,20 @@
     .checkout-steps div { color: #999; font-weight: bold; }
     .checkout-steps div.active { color: #eaac00; border-bottom: 2px solid #eaac00; }
     .btn-group { margin-top: 20px; text-align: center; }
-    .Button { cursor: pointer; padding: 10px 20px; }
+    .Button { cursor: pointer; padding: 5px 20px; }
+    .Button-right{
+        padding: 7px 20px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        cursor: pointer;
+        background-color: #FFC107;
+        color: black;
+        border: 1px solid #CCCCCC;
+        border-radius: 4px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);}
+    .Button-right:hover {
+        background-color: #eaac00;
+    }
 </style>
 
 <div id="Catalog">
@@ -68,23 +81,41 @@
         </table>
         <div class="btn-group">
             <button class="Button" onclick="cartForm">Return to Shopping Cart</button>
-            <button class="Button" onclick="changeStep(2)">Next Step: Select Payment Method</button>
+            <button class="Button-right" onclick="changeStep(2)">Next Step: Select Payment Method</button>
         </div>
     </div>
 
     <div id="step-2" class="step-container">
         <h2>Payment Method</h2>
         <div style="text-align: center;">
-            <img src="images/alipayPayImg.jpg" style="width: 200px; border: 1px solid #ddd;">
+            <img id="payQR" src="images/alipayPayImg.jpg" style="width: 200px; border: 1px solid #ddd;">
             <br><br>
-            <label><input type="radio" checked>Alipay</label>
-            <label><input type="radio" disabled> WeChat</label>
+
+            <label>
+                <input type="radio" name="payMethod" checked onclick="switchPay('alipay')"> Alipay
+            </label>
+            <label>
+                <input type="radio" name="payMethod" onclick="switchPay('wechat')"> WeChat
+            </label>
         </div>
+
         <div class="btn-group">
             <button class="Button" onclick="changeStep(1)">Previous Step</button>
-            <button class="Button" onclick="changeStep(3)"> I Have Paid, Fill in Address</button>
+            <button class="Button-right" onclick="changeStep(3)"> I Have Paid, Fill in Address</button>
         </div>
     </div>
+
+    <script>
+        function switchPay(method) {
+            const qrImage = document.getElementById('payQR');
+
+            if (method === 'alipay') {
+                qrImage.src = 'images/alipayPayImg.jpg';
+            } else if (method === 'wechat') {
+                qrImage.src = 'images/WeChatPayImg.jpg';
+            }
+        }
+    </script>
 
     <div id="step-3" class="step-container">
         <form id="combinedAddressForm">
@@ -258,7 +289,7 @@
         </form>
         <div class="btn-group">
             <button class="Button" onclick="changeStep(2)">Previous Step</button>
-            <button class="Button" onclick="ajaxSaveInfo()">Save and Preview Order</button>
+            <button class="Button-right" onclick="ajaxSaveInfo()">Save and Preview Order</button>
         </div>
     </div>
 
@@ -296,7 +327,7 @@
         </table>
         <div class="btn-group">
             <button class="Button" onclick="changeStep(3)"> Edit Information</button>
-            <button class="Button" style="background:#54c07a" onclick="ajaxFinalSubmit()">Confirm and Submit the Order</button>
+            <button class="Button-right" onclick="ajaxFinalSubmit()">Confirm and Submit the Order</button>
         </div>
     </div>
 
