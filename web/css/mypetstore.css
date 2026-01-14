@@ -244,45 +244,54 @@ a.Button:hover {
     color: #005e21;
 }
 
-.nav-search .search-content{
-    display: flex;          /* 让输入框和按钮也并排 */
+.nav-search .search-content {
+    display: flex;
     align-items: center;
     padding: 0;
 }
 
-.nav-search .search-input{
-    width: 500px;
-    height: 40px;
-    line-height: 40px;
-    border: 2px solid #005e21;
-    padding:0 0 0 8px;
-    font-size: 18px;
-    outline: none;;
-    margin: 0;
-    vertical-align: middle;
+.nav-search .search-btn {
+    position: static;       /* 【关键修改】取消 absolute，让它跟随 flex 排列 */
+    width: 100px;
+    height: 40px;           /* 跟输入框高度保持一致 (40px input + 2px border*2 = 44px? 需注意边框计算) */
+    font-size: 16px;
+
+    /* 为了视觉对齐，这里手动微调一下 */
+    height: 44px;           /* 输入框(40)+上下边框(2+2)=44，所以按钮设为44 */
+    margin-left: -2px;      /* 让按钮紧贴输入框左边框，覆盖掉重复的边框 */
 }
 
-.btn{
+.btn {
     display: inline-block;
-    padding: 0 20px;
-    height: 40px;
-    line-height: 40px;
-    vertical-align: middle;
-    border: none;
+    height: 44px;           /* 【关键】高度与输入框严格一致 */
+    line-height: 44px;      /* 文字垂直居中 */
+    box-sizing: border-box; /* 【核心】统一盒模型标准 */
+    padding: 0 20px;        /* 左右内边距 */
+    border: none;           /* 按钮无边框 */
     background: #005e21;
     color: #fff;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;
-    margin: 0 0 0 512px;
+    margin: 0;
+    vertical-align: middle; /* 垂直对齐 */
+    float: left;            /* 让按钮紧贴输入框左侧 */
     outline: none;
 }
-.nav-search .search-btn{
-    position: absolute;
-    width: 120px;
-    height: 44px;
-    font-size: 20px;
+
+
+.nav-search .search-input {
+    width: 400px;           /* 宽度 */
+    height: 44px;           /* 【关键】高度设为 44px，与按钮一致 */
+    line-height: 40px;      /* 行高 = 高度 - 上下边框(2+2)，保证光标垂直居中 */
+    box-sizing: border-box; /* 【核心】让 height:44px 包含边框和内边距，不会被撑大 */
+    border: 2px solid #005e21;
+    padding: 0 10px;
+    font-size: 14px;
+    outline: none;
+    vertical-align: middle; /* 垂直对齐 */
+    float: left;            /* 配合 Flex 或 Float 布局，确保紧贴 */
 }
 
 /* 面包屑导航 */
@@ -432,19 +441,21 @@ body>#Banner {
 }
 
 .search-wrapper {
-    position: relative;
-    display: inline-block;
+    position: relative;     /* 保持相对定位，作为子元素的参考点 */
+    display: flex;          /* 让输入框和按钮横向排列 */
+    align-items: center;
 }
 
 #productAutoComplete {
-    position: relative;
-    top: -28.5px;
+    z-index: 9999;
+    position: absolute;     /* 【关键修改】改为绝对定位，悬浮在内容上方，不占位置 */
+    top: 44px;              /* 刚好位于输入框下方 */
     left: 0;
-    width: 100%;
-    background: #ccc;
-    border: 1px solid #999;
-    z-index: 1000;
-    display:none;
+    width: 100%;            /* 和输入框等宽 */
+    background: #fff;       /* 背景改为白色看起来更干净 */
+    border: 1px solid #005e21;
+    z-index: 1000;          /* 确保在最上层 */
+    display: none;          /* 默认隐藏 */
 }
 
 #productAutoList{
@@ -542,4 +553,28 @@ body>#Banner {
 .menu-item-row:hover {
     background-color: #ffebd7;
     color: #cc6600;
+}
+
+/* 1. 提升搜索栏整体的层级 */
+.nav-search {
+    position: relative;     /* 必须有定位属性，z-index 才会生效 */
+    z-index: 2000;          /* 设置一个很高的数值，让它“浮”在最上面 */
+}
+
+/* 2. 关键！解除搜索栏内部的“溢出隐藏”限制 */
+/* 原本的 .w 类有 overflow: hidden，这会导致下拉菜单出不来或被切断 */
+.nav-search .w {
+    overflow: visible !important;  /* 强制允许内容超出容器显示 */
+}
+
+/* 3. 再次确保下拉列表在最顶层 */
+#productAutoComplete {
+    z-index: 3000;          /* 确保比父容器更高 */
+    /* 之前的样式保持不变 (absolute, top, background 等) */
+}
+
+/* 4. 降低下面那个绿色横条的层级（可选，作为双重保险） */
+.crumb {
+    position: relative;
+    z-index: 10;            /* 让它比搜索栏(.nav-search)低 */
 }

@@ -1,10 +1,24 @@
+/* CSS Reset */
+*{
+    margin:0;
+    padding:0;
+}
 body {
-    margin: 0ex 10ex 0ex 10ex;
     padding: 0ex;
     font-family: helvetica, tahoma, arial, verdana, sans-serif;
     font-size: 2ex;
     color: #333;
-    background-color: #444;
+    background-color: #f6f6f6;
+}
+
+.w{
+    width: 1240px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+.w1{
+    background:#fff;
 }
 
 pre {
@@ -80,16 +94,6 @@ th {
     background-color: #e2e2e2;
 }
 
-a, a:visited, a:link {
-    color: #039;
-
-    text-decoration: none;
-    font-family: helvetica, tahoma, arial, verdana, sans-serif;
-}
-
-a:hover {
-    color: #69f;
-}
 
 a.Button, a.Button:link, a.Button:visited {
     padding: .3ex;
@@ -105,132 +109,244 @@ a.Button:hover {
     background-color: #54c07a;
 }
 
-#Logo {
-    width: 33%;
-    height: 9ex;
-    margin: 0ex 0ex 0ex 0ex;
-    padding: 0ex 0ex 0ex 0ex;
-    border-width: 0ex 0ex .3ex 0px;
-    border-style: solid;
-    border-color: #ccc;
+.link,a, a:visited, a:link{
+    color: #999;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: helvetica, tahoma, arial, verdana, sans-serif;
+}
+.link:hover,a:hover {
+    color: #005e21;
+    text-decoration: underline;
+}
+
+.link-text{
+    color:#999;
+    text-decoration: none;
+}
+
+
+/*#Logo {*/
+/*    width: 33%;*/
+/*    height: 9ex;*/
+/*    margin: 0ex 0ex 0ex 0ex;*/
+/*    padding: 0ex 0ex 0ex 0ex;*/
+/*    border-width: 0ex 0ex .3ex 0px;*/
+/*    border-style: solid;*/
+/*    border-color: #ccc;*/
+/*    float: left;*/
+/*    background-color: honeydew;*/
+/*    color: #fff;*/
+/*    line-height: 9ex;*/
+/*    voice-family: inherit;*/
+/*}*/
+
+/*body>#Logo {*/
+/*    height: 9ex;*/
+/*}*/
+
+.nav-top{
+    background-color: #eee;
+    font: 13px/1.5 tahoma, Helvetica, Arial, Microsoft Yahei, sans-serif;
+    height:30px;
+    line-height:30px;
+}
+
+.nav-top .user-info{
     float: left;
-    background-color: #000;
+}
+
+.nav-top .user-info .link{
+    margin-right: 5px;
+}
+
+.nav-top .user-info .link-text{
+    margin-right: 5px;
+}
+
+.nav-top .nav-top-list{
+    float: right;
+}
+
+.nav-top .nav-top-list .nav-top-item{
+    display: inline-block;
+    margin-left: 5px;
+}
+/*#Menu {*/
+/*    width: 33%;*/
+/*    height: 9ex;*/
+/*    margin: 0ex 0ex 0ex 0ex;*/
+/*    padding: 0ex 0ex 0ex 0ex;*/
+/*    border-width: 0ex 0ex .3ex 0px;*/
+/*    border-style: solid;*/
+/*    border-color: #ccc;*/
+/*    float: left;*/
+/*    background-color: honeydew;*/
+/*    color: #eaac00;*/
+/*    text-decoration: none;*/
+/*    font-family: helvetica, tahoma, arial, verdana, sans-serif;*/
+/*    text-align: center;*/
+/*    line-height: 9ex;*/
+/*    voice-family: inherit;*/
+/*}*/
+
+
+/*body>#Menu {*/
+/*    height: 9ex;*/
+/*}*/
+
+/*{*/
+/*}*/
+
+/*#Search {*/
+/*    width: 33%;*/
+/*    height: 9ex;*/
+/*    margin: 0ex 0ex 0ex 0ex;*/
+/*    padding: 0ex 0ex 0ex 0ex;*/
+/*    border-width: 0ex 0ex .3ex 0px;*/
+/*    border-style: solid;*/
+/*    border-color: #ccc;*/
+/*    float: left;*/
+/*    text-align: center;*/
+/*    background-color: honeydew;*/
+/*    color: #eaac00;*/
+/*    line-height: 9ex;*/
+/*    voice-family: inherit;*/
+/*}*/
+
+/*body>#Search {*/
+/*    height: 9ex;*/
+/*}*/
+
+/*#Search input {*/
+/*    border-width: .1ex .1ex .1ex .1ex;*/
+/*    border-style: solid;*/
+/*    border-color: #aaa;*/
+/*    background-color: whitesmoke;*/
+/*    color: #eaac00;*/
+/*}*/
+
+.nav-search .w {
+    display: flex;          /* 开启 flex 布局 */
+    align-items: center;    /* 垂直居中对齐 */
+    justify-content: flex-start; /* 水平从左侧开始排列 */
+    padding: 20px 0;       /* 给上下留一点间距，代替之前混乱的 padding */
+}
+
+.nav-search .logo{
+    margin-right: 50px;     /* Logo 和搜索框之间的间距 */
+    position: static;
+    left:70px;
+    top:32px;
+    display: block;
+    font-size: 36px;
+    font-weight: bold;
+    color: #005e21;
+}
+
+.nav-search .search-content {
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.nav-search .search-btn {
+    position: static;       /* 【关键修改】取消 absolute，让它跟随 flex 排列 */
+    width: 100px;
+    height: 40px;           /* 跟输入框高度保持一致 (40px input + 2px border*2 = 44px? 需注意边框计算) */
+    font-size: 16px;
+
+    /* 为了视觉对齐，这里手动微调一下 */
+    height: 44px;           /* 输入框(40)+上下边框(2+2)=44，所以按钮设为44 */
+    margin-left: -2px;      /* 让按钮紧贴输入框左边框，覆盖掉重复的边框 */
+}
+
+.btn {
+    display: inline-block;
+    height: 44px;           /* 【关键】高度与输入框严格一致 */
+    line-height: 44px;      /* 文字垂直居中 */
+    box-sizing: border-box; /* 【核心】统一盒模型标准 */
+    padding: 0 20px;        /* 左右内边距 */
+    border: none;           /* 按钮无边框 */
+    background: #005e21;
     color: #fff;
-    line-height: 9ex;
-    voice-family: "\"}\"";
-    voice-family: inherit;
-    height: 9ex;
-}
-
-body>#Logo {
-    height: 9ex;
-}
-
-#Menu {
-    width: 33%;
-    height: 9ex;
-    margin: 0ex 0ex 0ex 0ex;
-    padding: 0ex 0ex 0ex 0ex;
-    border-width: 0ex 0ex .3ex 0px;
-    border-style: solid;
-    border-color: #ccc;
-    float: left;
-    background-color: #000;
-    color: #eaac00;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
     text-decoration: none;
-    font-family: helvetica, tahoma, arial, verdana, sans-serif;
-    text-align: center;
-    line-height: 9ex;
-    voice-family: "\"}\"";
-    voice-family: inherit;
-    height: 9ex;
+    margin: 0;
+    vertical-align: middle; /* 垂直对齐 */
+    float: left;            /* 让按钮紧贴输入框左侧 */
+    outline: none;
 }
 
-#Menu, #Menu a, #Menu a:link, #Menu a:visited, #Menu a:hover {
-    color: #eaac00;
-    text-decoration: none;
-    font-family: helvetica, tahoma, arial, verdana, sans-serif;
+
+.nav-search .search-input {
+    width: 400px;           /* 宽度 */
+    height: 44px;           /* 【关键】高度设为 44px，与按钮一致 */
+    line-height: 40px;      /* 行高 = 高度 - 上下边框(2+2)，保证光标垂直居中 */
+    box-sizing: border-box; /* 【核心】让 height:44px 包含边框和内边距，不会被撑大 */
+    border: 2px solid #005e21;
+    padding: 0 10px;
+    font-size: 14px;
+    outline: none;
+    vertical-align: middle; /* 垂直对齐 */
+    float: left;            /* 配合 Flex 或 Float 布局，确保紧贴 */
 }
 
-body>#Menu {
-    height: 9ex;
+/* 面包屑导航 */
+.crumb{
+    background: #eee;
+    height: 40px;
+    line-height: 40px;
+    color:#888;
+    font-size: 14px;
+    border-top: 2px solid #005e21;
+    margin-bottom: 10px;
 }
-
-{
-}
-
-#Search {
-    width: 33%;
-    height: 9ex;
-    margin: 0ex 0ex 0ex 0ex;
-    padding: 0ex 0ex 0ex 0ex;
-    border-width: 0ex 0ex .3ex 0px;
-    border-style: solid;
-    border-color: #ccc;
-    float: left;
-    text-align: center;
-    background-color: #000;
-    color: #eaac00;
-    line-height: 9ex;
-    voice-family: "\"}\"";
-    voice-family: inherit;
-    height: 9ex;
-}
-
-body>#Search {
-    height: 9ex;
-}
-
-#Search input {
-    border-width: .1ex .1ex .1ex .1ex;
-    border-style: solid;
-    border-color: #aaa;
-    background-color: #666;
-    color: #eaac00;
-}
-
 #QuickLinks {
     text-align: center;
-    background-color: #FFF;
+    background-color: #eee;
     width: 99%;
+    margin-bottom: 10px;
 }
 
-#PoweredBy {
-    width: 30%;
-    height: 9ex;
-    margin: 0ex 0ex 0ex 0ex;
-    padding: 0ex 0ex 0ex 0ex;
-    border-width: .3ex 0ex .3ex 0px;
-    border-style: solid;
-    border-color: #ccc;
-    float: left;
-    background-color: #000;
-    color: #fff;
-    line-height: 9ex;
-    voice-family: "\"}\"";
-    voice-family: inherit;
-    height: 9ex;
-}
 
 body>#PoweredBy {
     height: 9ex;
 }
 
 #Banner {
-    width: 69%;
-    height: 9ex;
-    margin: 0ex 0ex 0ex 0ex;
-    padding: 0ex 0ex 0ex 0ex;
-    border-width: .3ex 0ex .3ex 0px;
+    width: 99%;
+    height: 80px;           /* 建议使用固定像素高度，更稳定 */
+    margin: 1ex 0 0 0;
+    border-width: 0 0 .1ex 0;
     border-style: solid;
     border-color: #ccc;
-    float: left;
-    background-color: #000;
-    color: #fff;
-    line-height: 9ex;
-    voice-family: "\"}\"";
-    voice-family: inherit;
-    height: 9ex;
+    background-color: #eee;
+
+    /* 核心布局：使用 Flex 让所有内容垂直居中 */
+    display: flex;
+    align-items: center;    /* 垂直居中关键点 */
+    position: relative;     /* 必须设为 relative */
+    padding: 0;             /* 清除之前的 padding，防止撑破容器 */
+}
+
+#PoweredBy {
+    padding-left: 20px;     /* 距离左边缘的距离 */
+    z-index: 10;
+}
+
+#love {
+    /* 使用绝对定位实现相对于父容器的“真居中” */
+    position: absolute;
+    left: 50%;
+    top: 50%;               /* 移动到垂直中间 */
+    transform: translate(-50%, -50%); /* 抵消自身宽高，实现绝对中心 */
+
+    text-align: center;
+    white-space: nowrap;
+    line-height: normal;    /* 重置继承的 line-height */
 }
 
 body>#Banner {
@@ -242,7 +358,7 @@ body>#Banner {
     padding: 0ex 0ex 0ex 0ex;
     width: 99%;
     color: #333;
-    background-color: #FFF;
+    background-color: #f6f6f6;
     border-width: 0;
 }
 
@@ -316,26 +432,30 @@ body>#Banner {
 }
 
 #MyList{
-    width: 30%;
-    float: left;
+    width: 25%;
+    font: 16px/1.5 tahoma, Helvetica, Arial, Microsoft Yahei, sans-serif;
+    float: right;
     background-color:#ccc;
+    padding: 0 3ex;
     text-align:left;
 }
 
 .search-wrapper {
-    position: relative;
-    display: inline-block;
+    position: relative;     /* 保持相对定位，作为子元素的参考点 */
+    display: flex;          /* 让输入框和按钮横向排列 */
+    align-items: center;
 }
 
 #productAutoComplete {
-    position: relative;
-    top: -28.5px;
+    z-index: 9999;
+    position: absolute;     /* 【关键修改】改为绝对定位，悬浮在内容上方，不占位置 */
+    top: 44px;              /* 刚好位于输入框下方 */
     left: 0;
-    width: 100%;
-    background: #ccc;
-    border: 1px solid #999;
-    z-index: 1000;
-    display:none;
+    width: 100%;            /* 和输入框等宽 */
+    background: #fff;       /* 背景改为白色看起来更干净 */
+    border: 1px solid #005e21;
+    z-index: 1000;          /* 确保在最上层 */
+    display: none;          /* 默认隐藏 */
 }
 
 #productAutoList{
@@ -433,4 +553,28 @@ body>#Banner {
 .menu-item-row:hover {
     background-color: #ffebd7;
     color: #cc6600;
+}
+
+/* 1. 提升搜索栏整体的层级 */
+.nav-search {
+    position: relative;     /* 必须有定位属性，z-index 才会生效 */
+    z-index: 2000;          /* 设置一个很高的数值，让它“浮”在最上面 */
+}
+
+/* 2. 关键！解除搜索栏内部的“溢出隐藏”限制 */
+/* 原本的 .w 类有 overflow: hidden，这会导致下拉菜单出不来或被切断 */
+.nav-search .w {
+    overflow: visible !important;  /* 强制允许内容超出容器显示 */
+}
+
+/* 3. 再次确保下拉列表在最顶层 */
+#productAutoComplete {
+    z-index: 3000;          /* 确保比父容器更高 */
+    /* 之前的样式保持不变 (absolute, top, background 等) */
+}
+
+/* 4. 降低下面那个绿色横条的层级（可选，作为双重保险） */
+.crumb {
+    position: relative;
+    z-index: 10;            /* 让它比搜索栏(.nav-search)低 */
 }
